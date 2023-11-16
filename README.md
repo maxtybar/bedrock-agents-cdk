@@ -1,1 +1,1 @@
-# bedrock-agent-cdk
+# Bedrock Agent Construct
