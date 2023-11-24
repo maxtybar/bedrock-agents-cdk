@@ -1,0 +1,395 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Match snapshot 1`] = `
+{
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "BedrockAgentStackAgentIamRoleF90DDD6B": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "bedrock.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Description": "Agent role created by CDK.",
+        "RoleName": "AmazonBedrockExecutionRoleForAgents_MyAgentTestName",
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "BedrockAgentStackBedrockAgentCustomResourceFunction7C54E154": {
+      "DependsOn": [
+        "BedrockAgentStackbedrockAgentCustomResourceRoleDefaultPolicy8E4D4F82",
+        "BedrockAgentStackbedrockAgentCustomResourceRole8906E28C",
+      ],
+      "Properties": {
+        "Architectures": [
+          "x86_64",
+        ],
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "360dd44f1e10a4d790521661c7e9a896aeec8725cc0367984d0286d6ce0bb727.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "ACTION_GROUP": "{"actionGroupName":"Undefined","actionGroupExecutor":"Undefined","s3BucketName":"Undefined","s3ObjectKey":"Undefined"}",
+            "AGENT_NAME": "MyAgentTestName",
+            "AGENT_RESOURCE_ROLE_ARN": {
+              "Fn::GetAtt": [
+                "BedrockAgentStackAgentIamRoleF90DDD6B",
+                "Arn",
+              ],
+            },
+            "DESCRIPTION": "My custom description for an agent.",
+            "FOUNDATION_MODEL": "anthropic.claude-instant-v1",
+            "IDLE_SESSION_TTL_IN_SECONDS": "3600",
+            "INSTRUCTION": "This is a template instruction for my agent. You were created by AWS TypeScript CDK.",
+            "KNOWLEDGE_BASE": "{"name":"Undefined","roleArn":"Undefined","instruction":"Undefined","knowledgeBaseConfiguration":{"type":"Undefined","vectorKnowledgeBaseConfiguration":{"embeddingModelArn":"Undefined"}},"storageConfiguration":{"opensearchServerlessConfiguration":{"vectorIndexName":"Undefined","collectionArn":"Undefined","fieldMapping":{"vectorField":"Undefined","metadataField":"Undefined","textField":"Undefined"}},"type":"OPENSEARCH_SERVERLESS"},"dataSource":{"dataSourceConfiguration":{"s3Configuration":{"bucketArn":"Undefined"}}}}",
+          },
+        },
+        "Handler": "bedrock_agent_custom_resource.on_event",
+        "Layers": [
+          {
+            "Ref": "BedrockAgentStackBedrockAgentLayerA4E93A56",
+          },
+        ],
+        "Role": {
+          "Fn::GetAtt": [
+            "BedrockAgentStackbedrockAgentCustomResourceRole8906E28C",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.10",
+        "Timeout": 600,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "BedrockAgentStackBedrockAgentLayerA4E93A56": {
+      "Properties": {
+        "CompatibleRuntimes": [
+          "python3.10",
+        ],
+        "Content": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "ceb6730b0e6a2cf691fc330b976a45644e569928d4fbd792e20d79397d332179.zip",
+        },
+      },
+      "Type": "AWS::Lambda::LayerVersion",
+    },
+    "BedrockAgentStackBedrockCustomResource7D963CF8": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventB4EC7D8D",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventB4EC7D8D": {
+      "DependsOn": [
+        "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventServiceRoleDefaultPolicyE78DD0AF",
+        "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventServiceRole88457A82",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "7382a0addb9f34974a1ea6c6c9b063882af874828f366f5c93b2b7b64db15c94.zip",
+        },
+        "Description": "AWS CDK resource provider framework - onEvent (BedrockAgentStack/BedrockAgentStack/BedrockCustomResourceProvider)",
+        "Environment": {
+          "Variables": {
+            "USER_ON_EVENT_FUNCTION_ARN": {
+              "Fn::GetAtt": [
+                "BedrockAgentStackBedrockAgentCustomResourceFunction7C54E154",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.onEvent",
+        "Role": {
+          "Fn::GetAtt": [
+            "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventServiceRole88457A82",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventLogRetentionB1EBF216": {
+      "Properties": {
+        "LogGroupName": {
+          "Fn::Join": [
+            "",
+            [
+              "/aws/lambda/",
+              {
+                "Ref": "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventB4EC7D8D",
+              },
+            ],
+          ],
+        },
+        "RetentionInDays": 1,
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::LogRetention",
+    },
+    "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventServiceRole88457A82": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventServiceRoleDefaultPolicyE78DD0AF": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "BedrockAgentStackBedrockAgentCustomResourceFunction7C54E154",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "BedrockAgentStackBedrockAgentCustomResourceFunction7C54E154",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventServiceRoleDefaultPolicyE78DD0AF",
+        "Roles": [
+          {
+            "Ref": "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventServiceRole88457A82",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "BedrockAgentStackbedrockAgentCustomResourceRole8906E28C": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "BedrockAgentStackbedrockAgentCustomResourceRoleDefaultPolicy8E4D4F82": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "iam:PassRole",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "BedrockAgentStackAgentIamRoleF90DDD6B",
+                  "Arn",
+                ],
+              },
+            },
+            {
+              "Action": "*",
+              "Effect": "Allow",
+              "Resource": "arn:aws:bedrock:*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "BedrockAgentStackbedrockAgentCustomResourceRoleDefaultPolicy8E4D4F82",
+        "Roles": [
+          {
+            "Ref": "BedrockAgentStackbedrockAgentCustomResourceRole8906E28C",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A": {
+      "DependsOn": [
+        "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+        "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "5bc602ecde93c947efe5899ae355f999986a1acbe610b1c0b9c468d738857555.zip",
+        },
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:PutRetentionPolicy",
+                "logs:DeleteRetentionPolicy",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+        "Roles": [
+          {
+            "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
