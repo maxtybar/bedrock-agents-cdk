@@ -26,6 +26,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
     distName: 'bedrock-agent',
     module: 'bedrock_agent',
   },
+  publishToGo: {
+    moduleName: 'github.com/maxtybar/bedrock-agents-cdk',
+  },
 });
 
 const common_exclude = ['cdk.out', 'cdk.context.json', '*.DS_Store'];
