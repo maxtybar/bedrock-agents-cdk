@@ -24,3 +24,4 @@ tsconfig.tsbuildinfo
 cdk.out
 cdk.context.json
 *.DS_Store
+src/integ.default.ts

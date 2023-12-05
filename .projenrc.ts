@@ -31,7 +31,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
 });
 
-const common_exclude = ['cdk.out', 'cdk.context.json', '*.DS_Store'];
+const common_exclude = ['cdk.out', 'cdk.context.json', '*.DS_Store', 'src/integ.default.ts'];
 project.npmignore!.exclude(...common_exclude);
 project.gitignore.exclude(...common_exclude);
 

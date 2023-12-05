@@ -85,14 +85,14 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#bedrock-agents-cdk.BedrockAgent.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#bedrock-agents-cdk.BedrockAgent.property.actionGroup">actionGroup</a></code> | <code><a href="#bedrock-agents-cdk.ActionGroup">ActionGroup</a></code> | *No description.* |
+| <code><a href="#bedrock-agents-cdk.BedrockAgent.property.actionGroups">actionGroups</a></code> | <code><a href="#bedrock-agents-cdk.ActionGroup">ActionGroup</a>[]</code> | *No description.* |
 | <code><a href="#bedrock-agents-cdk.BedrockAgent.property.agentName">agentName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#bedrock-agents-cdk.BedrockAgent.property.agentResourceRoleArn">agentResourceRoleArn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#bedrock-agents-cdk.BedrockAgent.property.bedrockAgentCustomResourceRole">bedrockAgentCustomResourceRole</a></code> | <code>aws-cdk-lib.aws_iam.Role</code> | *No description.* |
 | <code><a href="#bedrock-agents-cdk.BedrockAgent.property.foundationModel">foundationModel</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#bedrock-agents-cdk.BedrockAgent.property.idleSessionTTLInSeconds">idleSessionTTLInSeconds</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#bedrock-agents-cdk.BedrockAgent.property.instruction">instruction</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#bedrock-agents-cdk.BedrockAgent.property.knowledgeBase">knowledgeBase</a></code> | <code><a href="#bedrock-agents-cdk.KnowledgeBase">KnowledgeBase</a></code> | *No description.* |
+| <code><a href="#bedrock-agents-cdk.BedrockAgent.property.knowledgeBaseAssociations">knowledgeBaseAssociations</a></code> | <code><a href="#bedrock-agents-cdk.KnowledgeBaseAssociation">KnowledgeBaseAssociation</a>[]</code> | *No description.* |
 | <code><a href="#bedrock-agents-cdk.BedrockAgent.property.region">region</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#bedrock-agents-cdk.BedrockAgent.property.description">description</a></code> | <code>string</code> | *No description.* |
 
@@ -110,13 +110,13 @@ The tree node.
 
 ---
 
-##### `actionGroup`<sup>Required</sup> <a name="actionGroup" id="bedrock-agents-cdk.BedrockAgent.property.actionGroup"></a>
+##### `actionGroups`<sup>Required</sup> <a name="actionGroups" id="bedrock-agents-cdk.BedrockAgent.property.actionGroups"></a>
 
 ```typescript
-public readonly actionGroup: ActionGroup;
+public readonly actionGroups: ActionGroup[];
 ```
 
-- *Type:* <a href="#bedrock-agents-cdk.ActionGroup">ActionGroup</a>
+- *Type:* <a href="#bedrock-agents-cdk.ActionGroup">ActionGroup</a>[]
 
 ---
 
@@ -180,13 +180,13 @@ public readonly instruction: string;
 
 ---
 
-##### `knowledgeBase`<sup>Required</sup> <a name="knowledgeBase" id="bedrock-agents-cdk.BedrockAgent.property.knowledgeBase"></a>
+##### `knowledgeBaseAssociations`<sup>Required</sup> <a name="knowledgeBaseAssociations" id="bedrock-agents-cdk.BedrockAgent.property.knowledgeBaseAssociations"></a>
 
 ```typescript
-public readonly knowledgeBase: KnowledgeBase;
+public readonly knowledgeBaseAssociations: KnowledgeBaseAssociation[];
 ```
 
-- *Type:* <a href="#bedrock-agents-cdk.KnowledgeBase">KnowledgeBase</a>
+- *Type:* <a href="#bedrock-agents-cdk.KnowledgeBaseAssociation">KnowledgeBaseAssociation</a>[]
 
 ---
 
@@ -207,6 +207,204 @@ public readonly description: string;
 ```
 
 - *Type:* string
+
+---
+
+
+### BedrockKnowledgeBase <a name="BedrockKnowledgeBase" id="bedrock-agents-cdk.BedrockKnowledgeBase"></a>
+
+#### Initializers <a name="Initializers" id="bedrock-agents-cdk.BedrockKnowledgeBase.Initializer"></a>
+
+```typescript
+import { BedrockKnowledgeBase } from 'bedrock-agents-cdk'
+
+new BedrockKnowledgeBase(scope: Construct, name: string, props: BedrockKnowledgeBaseProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.Initializer.parameter.props">props</a></code> | <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBaseProps">BedrockKnowledgeBaseProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="bedrock-agents-cdk.BedrockKnowledgeBase.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="bedrock-agents-cdk.BedrockKnowledgeBase.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="bedrock-agents-cdk.BedrockKnowledgeBase.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#bedrock-agents-cdk.BedrockKnowledgeBaseProps">BedrockKnowledgeBaseProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="bedrock-agents-cdk.BedrockKnowledgeBase.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="bedrock-agents-cdk.BedrockKnowledgeBase.isConstruct"></a>
+
+```typescript
+import { BedrockKnowledgeBase } from 'bedrock-agents-cdk'
+
+BedrockKnowledgeBase.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="bedrock-agents-cdk.BedrockKnowledgeBase.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.bedrockKnowledgeBaseCustomResourceRole">bedrockKnowledgeBaseCustomResourceRole</a></code> | <code>aws-cdk-lib.aws_iam.Role</code> | *No description.* |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.dataSource">dataSource</a></code> | <code><a href="#bedrock-agents-cdk.DataSource">DataSource</a></code> | *No description.* |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.region">region</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.roleArn">roleArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.storageConfiguration">storageConfiguration</a></code> | <code><a href="#bedrock-agents-cdk.OpenSearchServerlessStorageConfiguration">OpenSearchServerlessStorageConfiguration</a> \| <a href="#bedrock-agents-cdk.RedisEnterpriseCloudStorageConfiguration">RedisEnterpriseCloudStorageConfiguration</a> \| <a href="#bedrock-agents-cdk.PineconeStorageConfiguration">PineconeStorageConfiguration</a></code> | *No description.* |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.knowledgeBaseConfiguration">knowledgeBaseConfiguration</a></code> | <code><a href="#bedrock-agents-cdk.KnowledgeBaseConfiguration">KnowledgeBaseConfiguration</a></code> | *No description.* |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `bedrockKnowledgeBaseCustomResourceRole`<sup>Required</sup> <a name="bedrockKnowledgeBaseCustomResourceRole" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.bedrockKnowledgeBaseCustomResourceRole"></a>
+
+```typescript
+public readonly bedrockKnowledgeBaseCustomResourceRole: Role;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.Role
+
+---
+
+##### `dataSource`<sup>Required</sup> <a name="dataSource" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.dataSource"></a>
+
+```typescript
+public readonly dataSource: DataSource;
+```
+
+- *Type:* <a href="#bedrock-agents-cdk.DataSource">DataSource</a>
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `region`<sup>Required</sup> <a name="region" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.region"></a>
+
+```typescript
+public readonly region: string;
+```
+
+- *Type:* string
+
+---
+
+##### `roleArn`<sup>Required</sup> <a name="roleArn" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.roleArn"></a>
+
+```typescript
+public readonly roleArn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `storageConfiguration`<sup>Required</sup> <a name="storageConfiguration" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.storageConfiguration"></a>
+
+```typescript
+public readonly storageConfiguration: OpenSearchServerlessStorageConfiguration | RedisEnterpriseCloudStorageConfiguration | PineconeStorageConfiguration;
+```
+
+- *Type:* <a href="#bedrock-agents-cdk.OpenSearchServerlessStorageConfiguration">OpenSearchServerlessStorageConfiguration</a> | <a href="#bedrock-agents-cdk.RedisEnterpriseCloudStorageConfiguration">RedisEnterpriseCloudStorageConfiguration</a> | <a href="#bedrock-agents-cdk.PineconeStorageConfiguration">PineconeStorageConfiguration</a>
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `knowledgeBaseConfiguration`<sup>Optional</sup> <a name="knowledgeBaseConfiguration" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.knowledgeBaseConfiguration"></a>
+
+```typescript
+public readonly knowledgeBaseConfiguration: KnowledgeBaseConfiguration;
+```
+
+- *Type:* <a href="#bedrock-agents-cdk.KnowledgeBaseConfiguration">KnowledgeBaseConfiguration</a>
+
+---
+
+##### `removalPolicy`<sup>Optional</sup> <a name="removalPolicy" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.removalPolicy"></a>
+
+```typescript
+public readonly removalPolicy: RemovalPolicy;
+```
+
+- *Type:* aws-cdk-lib.RemovalPolicy
 
 ---
 
@@ -376,12 +574,12 @@ const bedrockAgentProps: BedrockAgentProps = { ... }
 | --- | --- | --- |
 | <code><a href="#bedrock-agents-cdk.BedrockAgentProps.property.agentName">agentName</a></code> | <code>string</code> | Required. |
 | <code><a href="#bedrock-agents-cdk.BedrockAgentProps.property.instruction">instruction</a></code> | <code>string</code> | Required. |
-| <code><a href="#bedrock-agents-cdk.BedrockAgentProps.property.actionGroup">actionGroup</a></code> | <code><a href="#bedrock-agents-cdk.ActionGroup">ActionGroup</a></code> | Optional. |
+| <code><a href="#bedrock-agents-cdk.BedrockAgentProps.property.actionGroups">actionGroups</a></code> | <code><a href="#bedrock-agents-cdk.ActionGroup">ActionGroup</a>[]</code> | Optional. |
 | <code><a href="#bedrock-agents-cdk.BedrockAgentProps.property.agentResourceRoleArn">agentResourceRoleArn</a></code> | <code>string</code> | Optional. |
 | <code><a href="#bedrock-agents-cdk.BedrockAgentProps.property.description">description</a></code> | <code>string</code> | Optional. |
 | <code><a href="#bedrock-agents-cdk.BedrockAgentProps.property.foundationModel">foundationModel</a></code> | <code>string</code> | Optional. |
 | <code><a href="#bedrock-agents-cdk.BedrockAgentProps.property.idleSessionTTLInSeconds">idleSessionTTLInSeconds</a></code> | <code>number</code> | Optional. |
-| <code><a href="#bedrock-agents-cdk.BedrockAgentProps.property.knowledgeBase">knowledgeBase</a></code> | <code><a href="#bedrock-agents-cdk.KnowledgeBase">KnowledgeBase</a></code> | Optional. |
+| <code><a href="#bedrock-agents-cdk.BedrockAgentProps.property.knowledgeBaseAssociations">knowledgeBaseAssociations</a></code> | <code><a href="#bedrock-agents-cdk.KnowledgeBaseAssociation">KnowledgeBaseAssociation</a>[]</code> | Optional. |
 
 ---
 
@@ -414,13 +612,13 @@ Characters length:
 
 ---
 
-##### `actionGroup`<sup>Optional</sup> <a name="actionGroup" id="bedrock-agents-cdk.BedrockAgentProps.property.actionGroup"></a>
+##### `actionGroups`<sup>Optional</sup> <a name="actionGroups" id="bedrock-agents-cdk.BedrockAgentProps.property.actionGroups"></a>
 
 ```typescript
-public readonly actionGroup: ActionGroup;
+public readonly actionGroups: ActionGroup[];
 ```
 
-- *Type:* <a href="#bedrock-agents-cdk.ActionGroup">ActionGroup</a>
+- *Type:* <a href="#bedrock-agents-cdk.ActionGroup">ActionGroup</a>[]
 
 Optional.
 
@@ -499,20 +697,165 @@ Max Session Time in seconds.
 
 ---
 
-##### `knowledgeBase`<sup>Optional</sup> <a name="knowledgeBase" id="bedrock-agents-cdk.BedrockAgentProps.property.knowledgeBase"></a>
+##### `knowledgeBaseAssociations`<sup>Optional</sup> <a name="knowledgeBaseAssociations" id="bedrock-agents-cdk.BedrockAgentProps.property.knowledgeBaseAssociations"></a>
 
 ```typescript
-public readonly knowledgeBase: KnowledgeBase;
+public readonly knowledgeBaseAssociations: KnowledgeBaseAssociation[];
 ```
 
-- *Type:* <a href="#bedrock-agents-cdk.KnowledgeBase">KnowledgeBase</a>
+- *Type:* <a href="#bedrock-agents-cdk.KnowledgeBaseAssociation">KnowledgeBaseAssociation</a>[]
 
 Optional.
 
-Knowledge base. If provided must be either of type ``openSearchServerlessConfiguration``
-or ``pineconeConfiguration`` or ``redisEnterpriseCloudConfiguration``.
+A list of knowledge base association objects
+consisting of name and instruction for the associated knowledge base.
 
-> [https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-create.html](https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-create.html)
+---
+
+*Example*
+
+```typescript
+knowledgeBaseAssociations: [
+  {
+    knowledgeBaseName: "knowledge-base-name",
+    instruction: "instruction-for-knowledge-base"
+  }
+```
+
+
+### BedrockKnowledgeBaseProps <a name="BedrockKnowledgeBaseProps" id="bedrock-agents-cdk.BedrockKnowledgeBaseProps"></a>
+
+#### Initializer <a name="Initializer" id="bedrock-agents-cdk.BedrockKnowledgeBaseProps.Initializer"></a>
+
+```typescript
+import { BedrockKnowledgeBaseProps } from 'bedrock-agents-cdk'
+
+const bedrockKnowledgeBaseProps: BedrockKnowledgeBaseProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.dataSource">dataSource</a></code> | <code><a href="#bedrock-agents-cdk.DataSource">DataSource</a></code> | Required. |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.name">name</a></code> | <code>string</code> | Required. |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.roleArn">roleArn</a></code> | <code>string</code> | Required. |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.storageConfiguration">storageConfiguration</a></code> | <code><a href="#bedrock-agents-cdk.OpenSearchServerlessStorageConfiguration">OpenSearchServerlessStorageConfiguration</a> \| <a href="#bedrock-agents-cdk.RedisEnterpriseCloudStorageConfiguration">RedisEnterpriseCloudStorageConfiguration</a> \| <a href="#bedrock-agents-cdk.PineconeStorageConfiguration">PineconeStorageConfiguration</a></code> | Required. |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.description">description</a></code> | <code>string</code> | Optional. |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.knowledgeBaseConfiguration">knowledgeBaseConfiguration</a></code> | <code><a href="#bedrock-agents-cdk.KnowledgeBaseConfiguration">KnowledgeBaseConfiguration</a></code> | Optional. |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | Optional. |
+
+---
+
+##### `dataSource`<sup>Required</sup> <a name="dataSource" id="bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.dataSource"></a>
+
+```typescript
+public readonly dataSource: DataSource;
+```
+
+- *Type:* <a href="#bedrock-agents-cdk.DataSource">DataSource</a>
+
+Required.
+
+Data source configuration.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+Required.
+
+Name of the KnowledgeBase.
+
+---
+
+##### `roleArn`<sup>Required</sup> <a name="roleArn" id="bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.roleArn"></a>
+
+```typescript
+public readonly roleArn: string;
+```
+
+- *Type:* string
+
+Required.
+
+Resource role ARN for a knowledge base.
+Role name must start with ``AmazonBedrockExecutionRoleForKnowledgeBase_`` prefix and assumed by ``bedrock.amazonaws.com``.
+Role must have access to the S3 bucket used as a data source as a knowledge base.
+If you use OpenSearch serverless, the role must have ``aoss:APIAccessAll`` policy attached to it
+allowing it to make API calls against your collection's data plane. Your collection
+must also allow data access from KnowledgeBase role.
+See more here @see https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html
+
+---
+
+##### `storageConfiguration`<sup>Required</sup> <a name="storageConfiguration" id="bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.storageConfiguration"></a>
+
+```typescript
+public readonly storageConfiguration: OpenSearchServerlessStorageConfiguration | RedisEnterpriseCloudStorageConfiguration | PineconeStorageConfiguration;
+```
+
+- *Type:* <a href="#bedrock-agents-cdk.OpenSearchServerlessStorageConfiguration">OpenSearchServerlessStorageConfiguration</a> | <a href="#bedrock-agents-cdk.RedisEnterpriseCloudStorageConfiguration">RedisEnterpriseCloudStorageConfiguration</a> | <a href="#bedrock-agents-cdk.PineconeStorageConfiguration">PineconeStorageConfiguration</a>
+
+Required.
+
+KnowledgeBase storage configuration.
+Has to be either ``opensearchServerlessConfiguration`` or
+``pineconeConfiguration`` or ``redisEnterpriseCloudConfiguration``
+and respective type field mapping.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+Optional.
+
+Description for the knowledge base.
+
+---
+
+##### `knowledgeBaseConfiguration`<sup>Optional</sup> <a name="knowledgeBaseConfiguration" id="bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.knowledgeBaseConfiguration"></a>
+
+```typescript
+public readonly knowledgeBaseConfiguration: KnowledgeBaseConfiguration;
+```
+
+- *Type:* <a href="#bedrock-agents-cdk.KnowledgeBaseConfiguration">KnowledgeBaseConfiguration</a>
+- *Default:* type: "VECTOR", vectorKnowledgeBaseConfiguration: {     embeddingModelArn: "arn:aws:bedrock:us-east-1::foundation-model/amazon.titan-embed-text-v1" }
+
+Optional.
+
+KnowledgeBase configuration.
+
+---
+
+##### `removalPolicy`<sup>Optional</sup> <a name="removalPolicy" id="bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.removalPolicy"></a>
+
+```typescript
+public readonly removalPolicy: RemovalPolicy;
+```
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+- *Default:* cdk.RemovalPolicy.DESTROY
+
+Optional.
+
+Removal Policy. If you want to keep your Knowledge Base intact
+in case you destroy this CDK make sure you set removalPolicy to
+``cdk.RemovalPolicy.RETAIN``. By default your Knowledge Base will be
+deleted along with the agent.
 
 ---
 
@@ -568,7 +911,7 @@ public readonly name: string;
 ```
 
 - *Type:* string
-- *Default:* `MyDataSource-${agentName}`
+- *Default:* `MyDataSource-${agentName}` or `MyDataSource-${knowledgeBaseName}`
 
 Optional.
 
@@ -633,46 +976,26 @@ Type of configuration.
 
 ---
 
-### KnowledgeBase <a name="KnowledgeBase" id="bedrock-agents-cdk.KnowledgeBase"></a>
+### KnowledgeBaseAssociation <a name="KnowledgeBaseAssociation" id="bedrock-agents-cdk.KnowledgeBaseAssociation"></a>
 
-#### Initializer <a name="Initializer" id="bedrock-agents-cdk.KnowledgeBase.Initializer"></a>
+#### Initializer <a name="Initializer" id="bedrock-agents-cdk.KnowledgeBaseAssociation.Initializer"></a>
 
 ```typescript
-import { KnowledgeBase } from 'bedrock-agents-cdk'
+import { KnowledgeBaseAssociation } from 'bedrock-agents-cdk'
 
-const knowledgeBase: KnowledgeBase = { ... }
+const knowledgeBaseAssociation: KnowledgeBaseAssociation = { ... }
 ```
 
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#bedrock-agents-cdk.KnowledgeBase.property.dataSource">dataSource</a></code> | <code><a href="#bedrock-agents-cdk.DataSource">DataSource</a></code> | Required. |
-| <code><a href="#bedrock-agents-cdk.KnowledgeBase.property.instruction">instruction</a></code> | <code>string</code> | Required. |
-| <code><a href="#bedrock-agents-cdk.KnowledgeBase.property.name">name</a></code> | <code>string</code> | Required. |
-| <code><a href="#bedrock-agents-cdk.KnowledgeBase.property.roleArn">roleArn</a></code> | <code>string</code> | Required. |
-| <code><a href="#bedrock-agents-cdk.KnowledgeBase.property.storageConfiguration">storageConfiguration</a></code> | <code><a href="#bedrock-agents-cdk.OpenSearchServerlessStorageConfiguration">OpenSearchServerlessStorageConfiguration</a> \| <a href="#bedrock-agents-cdk.RedisEnterpriseCloudStorageConfiguration">RedisEnterpriseCloudStorageConfiguration</a> \| <a href="#bedrock-agents-cdk.PineconeStorageConfiguration">PineconeStorageConfiguration</a></code> | Required. |
-| <code><a href="#bedrock-agents-cdk.KnowledgeBase.property.description">description</a></code> | <code>string</code> | Optional. |
-| <code><a href="#bedrock-agents-cdk.KnowledgeBase.property.knowledgeBaseConfiguration">knowledgeBaseConfiguration</a></code> | <code><a href="#bedrock-agents-cdk.KnowledgeBaseConfiguration">KnowledgeBaseConfiguration</a></code> | Optional. |
-| <code><a href="#bedrock-agents-cdk.KnowledgeBase.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | Optional. |
+| <code><a href="#bedrock-agents-cdk.KnowledgeBaseAssociation.property.instruction">instruction</a></code> | <code>string</code> | Required. |
+| <code><a href="#bedrock-agents-cdk.KnowledgeBaseAssociation.property.knowledgeBaseName">knowledgeBaseName</a></code> | <code>string</code> | Required. |
 
 ---
 
-##### `dataSource`<sup>Required</sup> <a name="dataSource" id="bedrock-agents-cdk.KnowledgeBase.property.dataSource"></a>
-
-```typescript
-public readonly dataSource: DataSource;
-```
-
-- *Type:* <a href="#bedrock-agents-cdk.DataSource">DataSource</a>
-
-Required.
-
-Data source configuration.
-
----
-
-##### `instruction`<sup>Required</sup> <a name="instruction" id="bedrock-agents-cdk.KnowledgeBase.property.instruction"></a>
+##### `instruction`<sup>Required</sup> <a name="instruction" id="bedrock-agents-cdk.KnowledgeBaseAssociation.property.instruction"></a>
 
 ```typescript
 public readonly instruction: string;
@@ -687,101 +1010,18 @@ This will impact how the knowledge base interacts with the agent.
 
 ---
 
-##### `name`<sup>Required</sup> <a name="name" id="bedrock-agents-cdk.KnowledgeBase.property.name"></a>
+##### `knowledgeBaseName`<sup>Required</sup> <a name="knowledgeBaseName" id="bedrock-agents-cdk.KnowledgeBaseAssociation.property.knowledgeBaseName"></a>
 
 ```typescript
-public readonly name: string;
+public readonly knowledgeBaseName: string;
 ```
 
 - *Type:* string
 
 Required.
 
-Name of the KnowledgeBase.
-
----
-
-##### `roleArn`<sup>Required</sup> <a name="roleArn" id="bedrock-agents-cdk.KnowledgeBase.property.roleArn"></a>
-
-```typescript
-public readonly roleArn: string;
-```
-
-- *Type:* string
-
-Required.
-
-Resource role ARN for a knowledge base.
-Role name must start with ``AmazonBedrockExecutionRoleForKnowledgeBase_`` prefix and assumed by ``bedrock.amazonaws.com``.
-Role must have access to the S3 bucket used as a data source as a knowledge base.
-If you use OpenSearch serverless, the role must have ``aoss:APIAccessAll`` policy attached to it
-allowing it to make API calls against your collection's data plane. Your collection
-must also allow data access from KnowledgeBase role.
-See more here @see https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-data-access.html
-
----
-
-##### `storageConfiguration`<sup>Required</sup> <a name="storageConfiguration" id="bedrock-agents-cdk.KnowledgeBase.property.storageConfiguration"></a>
-
-```typescript
-public readonly storageConfiguration: OpenSearchServerlessStorageConfiguration | RedisEnterpriseCloudStorageConfiguration | PineconeStorageConfiguration;
-```
-
-- *Type:* <a href="#bedrock-agents-cdk.OpenSearchServerlessStorageConfiguration">OpenSearchServerlessStorageConfiguration</a> | <a href="#bedrock-agents-cdk.RedisEnterpriseCloudStorageConfiguration">RedisEnterpriseCloudStorageConfiguration</a> | <a href="#bedrock-agents-cdk.PineconeStorageConfiguration">PineconeStorageConfiguration</a>
-
-Required.
-
-KnowledgeBase storage configuration.
-Has to be either ``opensearchServerlessConfiguration`` or
-``pineconeConfiguration`` or ``redisEnterpriseCloudConfiguration``
-and respective type field mapping.
-
----
-
-##### `description`<sup>Optional</sup> <a name="description" id="bedrock-agents-cdk.KnowledgeBase.property.description"></a>
-
-```typescript
-public readonly description: string;
-```
-
-- *Type:* string
-
-Optional.
-
-Description for the knowledge base.
-
----
-
-##### `knowledgeBaseConfiguration`<sup>Optional</sup> <a name="knowledgeBaseConfiguration" id="bedrock-agents-cdk.KnowledgeBase.property.knowledgeBaseConfiguration"></a>
-
-```typescript
-public readonly knowledgeBaseConfiguration: KnowledgeBaseConfiguration;
-```
-
-- *Type:* <a href="#bedrock-agents-cdk.KnowledgeBaseConfiguration">KnowledgeBaseConfiguration</a>
-- *Default:* type: "VECTOR", vectorKnowledgeBaseConfiguration: {     embeddingModelArn: "arn:aws:bedrock:us-east-1::foundation-model/amazon.titan-embed-text-v1" }
-
-Optional.
-
-KnowledgeBase configuration.
-
----
-
-##### `removalPolicy`<sup>Optional</sup> <a name="removalPolicy" id="bedrock-agents-cdk.KnowledgeBase.property.removalPolicy"></a>
-
-```typescript
-public readonly removalPolicy: RemovalPolicy;
-```
-
-- *Type:* aws-cdk-lib.RemovalPolicy
-- *Default:* cdk.RemovalPolicy.DESTROY
-
-Optional.
-
-Removal Policy. If you want to keep your Knowledge Base intact
-in case you destroy this CDK make sure you set removalPolicy to
-``cdk.RemovalPolicy.RETAIN``. By default your Knowledge Base will be
-deleted along with the agent.
+Name of the existing Knowledge Base that
+you want to associate with the agent.
 
 ---
 
@@ -1088,7 +1328,7 @@ public readonly fieldMapping: PineconeFieldMapping;
 
 Required.
 
-Field mapping consisting of``textField`` and ``metadataField``.
+Field mapping consisting of ``textField`` and ``metadataField``.
 
 ---
 
@@ -1445,6 +1685,7 @@ const s3Configuration: S3Configuration = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#bedrock-agents-cdk.S3Configuration.property.bucketArn">bucketArn</a></code> | <code>string</code> | Required. |
+| <code><a href="#bedrock-agents-cdk.S3Configuration.property.inclusionPrefixes">inclusionPrefixes</a></code> | <code>string[]</code> | Optional. |
 
 ---
 
@@ -1460,6 +1701,23 @@ Required.
 
 S3 bucket with files that you want to create embeddings
 on for agent to make search on.
+
+---
+
+##### `inclusionPrefixes`<sup>Optional</sup> <a name="inclusionPrefixes" id="bedrock-agents-cdk.S3Configuration.property.inclusionPrefixes"></a>
+
+```typescript
+public readonly inclusionPrefixes: string[];
+```
+
+- *Type:* string[]
+
+Optional.
+
+Prefix for a bucket if your files located in a folder.
+If you have a folder ``files``inside the bucket,
+and the folder contains files you want to perform
+search on, then use ``[files/]`` as an ``inclusionPrefixes``.
 
 ---
 

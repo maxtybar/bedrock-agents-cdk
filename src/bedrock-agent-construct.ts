@@ -5,16 +5,15 @@ import {
   aws_iam as iam,
   Duration,
   CustomResource,
-  RemovalPolicy,
   Stack,
   custom_resources,
 } from 'aws-cdk-lib';
 import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
 import {
-  KnowledgeBase,
   ActionGroup,
   BedrockAgentProps,
+  KnowledgeBaseAssociation,
 } from './interfaces';
 
 // Assign default props
@@ -34,8 +33,8 @@ export class BedrockAgent extends Construct {
   readonly agentResourceRoleArn: string;
   readonly description: string | undefined;
   readonly idleSessionTTLInSeconds: number;
-  readonly actionGroup: ActionGroup;
-  readonly knowledgeBase: KnowledgeBase;
+  readonly actionGroups: ActionGroup[];
+  readonly knowledgeBaseAssociations: KnowledgeBaseAssociation[];
   readonly bedrockAgentCustomResourceRole: iam.Role;
 
   constructor(scope: Construct, name: string, props: BedrockAgentProps) {
@@ -50,26 +49,26 @@ export class BedrockAgent extends Construct {
     this.agentResourceRoleArn = props.agentResourceRoleArn ?? this.getDefaultAgentResourceRoleArn();
     this.description = props.description;
     this.idleSessionTTLInSeconds = props.idleSessionTTLInSeconds as number;
-    this.actionGroup = props.actionGroup ?? this.getUndefinedActionGroup();
-    this.knowledgeBase = this.handleKnowledgeBaseProps(props.knowledgeBase);
+    this.actionGroups = props.actionGroups ?? this.getUndefinedActionGroup();
+    this.knowledgeBaseAssociations = props.knowledgeBaseAssociations ?? this.getUndefinedKnowledgeBase();
 
-    this.bedrockAgentCustomResourceRole = new iam.Role(this, 'bedrockAgentCustomResourceRole', {
+    this.bedrockAgentCustomResourceRole = new iam.Role(this, 'BedrockAgentCustomResourceRole', {
       assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
     });
 
-    /**
-    * Check if IAM role was provided for knowledge base and if it was
-    * then add iam:PassRole permission on that role to custom resource's
-    * IAM role.
-    */
-    const resources = [this.agentResourceRoleArn];
-    if (this.knowledgeBase.roleArn !== 'Undefined') {
-      resources.push(this.knowledgeBase.roleArn);
-    }
+    // /**
+    // * Check if IAM role was provided for knowledge base and if it was
+    // * then add iam:PassRole permission on that role to custom resource's
+    // * IAM role.
+    // */
+    // const resources = [this.agentResourceRoleArn];
+    // if (this.knowledgeBase.roleArn !== 'Undefined') {
+    //   resources.push(this.knowledgeBase.roleArn);
+    // }
 
     this.bedrockAgentCustomResourceRole.addToPolicy(new iam.PolicyStatement({
       actions: ['iam:PassRole'],
-      resources: resources,
+      resources: [this.agentResourceRoleArn],
     }));
 
     this.bedrockAgentCustomResourceRole.addToPolicy(new iam.PolicyStatement({
@@ -81,13 +80,18 @@ export class BedrockAgent extends Construct {
     * If agent group was provided then attach lambda:AllowInvoke policy
     * by an agent to the provided Lambda.
     */
-    this.actionGroup.actionGroupExecutor != 'Undefined' ? this.lambdaAttachResourceBasedPolicy(): 'Undefined';
+    // this.actionGroups.actionGroupExecutor != 'Undefined' ? this.lambdaAttachResourceBasedPolicy(): 'Undefined';
+    this.actionGroups.forEach(actionGroup => actionGroup.actionGroupExecutor != 'Undefined' ?
+      this.lambdaAttachResourceBasedPolicy(actionGroup.actionGroupExecutor) : 'Undefined');
 
     /**
     * If agent group was provided but IAM role for the agent
     * was not then attach s3 read access to the bucket to the default role.
     */
-    props.actionGroup?.s3BucketName && !props.agentResourceRoleArn && this.attachS3BucketReadOnlyPolicy();
+    // props.actionGroups?.s3BucketName && !props.agentResourceRoleArn && this.attachS3BucketReadOnlyPolicy();
+    props.actionGroups?.forEach(actionGroup =>
+      actionGroup.s3BucketName && !props.agentResourceRoleArn && this.attachS3BucketReadOnlyPolicy(actionGroup.s3BucketName),
+    );
 
     const layer = new lambda.LayerVersion(this, 'BedrockAgentLayer', {
       code: lambda.Code.fromAsset(path.join(__dirname, '../assets/lambda-layer/bedrock-agent-layer.zip')),
@@ -97,7 +101,7 @@ export class BedrockAgent extends Construct {
     const onEvent = new lambda.Function(this, 'BedrockAgentCustomResourceFunction', {
       runtime: lambda.Runtime.PYTHON_3_10,
       handler: 'bedrock_agent_custom_resource.on_event',
-      code: lambda.Code.fromAsset(path.join(__dirname, '../assets/function')),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../assets/functions')),
       architecture: lambda.Architecture.X86_64,
       layers: [layer],
       timeout: Duration.seconds(600),
@@ -108,18 +112,18 @@ export class BedrockAgent extends Construct {
         AGENT_RESOURCE_ROLE_ARN: this.agentResourceRoleArn,
         DESCRIPTION: this.description ?? 'Undefined',
         IDLE_SESSION_TTL_IN_SECONDS: this.idleSessionTTLInSeconds.toString(),
-        ACTION_GROUP: JSON.stringify(this.actionGroup),
-        KNOWLEDGE_BASE: JSON.stringify(this.knowledgeBase),
+        ACTION_GROUPS: JSON.stringify(this.actionGroups),
+        KNOWLEDGE_BASE_ASSOCIATIONS: JSON.stringify(this.knowledgeBaseAssociations),
       },
       role: this.bedrockAgentCustomResourceRole,
     });
 
-    const bedrockAgentCustomResourceProvider = new custom_resources.Provider(this, 'BedrockCustomResourceProvider', {
+    const bedrockAgentCustomResourceProvider = new custom_resources.Provider(this, 'BedrockAgentCustomResourceProvider', {
       onEventHandler: onEvent,
       logRetention: logs.RetentionDays.ONE_DAY,
     });
 
-    new CustomResource(this, 'BedrockCustomResource', {
+    new CustomResource(this, 'BedrockAgentCustomResource', {
       serviceToken: bedrockAgentCustomResourceProvider.serviceToken,
     });
   }
@@ -132,98 +136,38 @@ export class BedrockAgent extends Construct {
     }).roleArn;
   }
 
-  private attachS3BucketReadOnlyPolicy(): void {
+  private attachS3BucketReadOnlyPolicy(s3BucketName: string): void {
     const agentRole = iam.Role.fromRoleArn(this, 'AgentIamRoleArn', this.agentResourceRoleArn);
     const policyStatement =
       new PolicyStatement({
         actions: ['s3:GetObject*', 's3:ListBucket'],
-        resources: [`arn:aws:s3:::${this.actionGroup.s3BucketName}/*`,
-          `arn:aws:s3:::${this.actionGroup.s3BucketName}`],
+        resources: [`arn:aws:s3:::${s3BucketName}/*`,
+          `arn:aws:s3:::${s3BucketName}`],
       });
     agentRole.addToPrincipalPolicy(policyStatement);
   }
 
-  private lambdaAttachResourceBasedPolicy(): void {
+  private lambdaAttachResourceBasedPolicy(actionGroupExecutor: string): void {
     this.bedrockAgentCustomResourceRole.addToPolicy(new iam.PolicyStatement({
       actions: ['lambda:AddPermission', 'lambda:GetFunction', 'lambda:RemovePermission'],
-      resources: [this.actionGroup.actionGroupExecutor],
+      resources: [actionGroupExecutor],
     }));
   }
 
-  private handleKnowledgeBaseProps(knowledgeBase?: KnowledgeBase): KnowledgeBase {
-    if (!knowledgeBase) {
-      return this.getUndefinedKnowledgeBase();
-    } else {
-      return this.setKnowledgeBaseDefaultValues(knowledgeBase);
-    }
-  }
-
-  private getUndefinedActionGroup(): ActionGroup {
-    return {
+  private getUndefinedActionGroup(): ActionGroup[] {
+    return [{
       actionGroupName: 'Undefined',
       actionGroupExecutor: 'Undefined',
       s3BucketName: 'Undefined',
       s3ObjectKey: 'Undefined',
-    };
+    }];
   }
 
-  private getUndefinedKnowledgeBase(): KnowledgeBase {
-    return {
-      name: 'Undefined',
-      roleArn: 'Undefined',
+  private getUndefinedKnowledgeBase(): KnowledgeBaseAssociation[] {
+    return [{
+      knowledgeBaseName: 'Undefined',
       instruction: 'Undefined',
-      knowledgeBaseConfiguration: {
-        type: 'Undefined',
-        vectorKnowledgeBaseConfiguration: {
-          embeddingModelArn: 'Undefined',
-        },
-      },
-      storageConfiguration: {
-        opensearchServerlessConfiguration: {
-          vectorIndexName: 'Undefined',
-          collectionArn: 'Undefined',
-          fieldMapping: {
-            vectorField: 'Undefined',
-            metadataField: 'Undefined',
-            textField: 'Undefined',
-          },
-        },
-        type: 'OPENSEARCH_SERVERLESS',
-      },
-      dataSource: {
-        dataSourceConfiguration: {
-          s3Configuration: {
-            bucketArn: 'Undefined',
-          },
-        },
-      },
-    };
-  }
-
-  private setKnowledgeBaseDefaultValues(knowledgeBase: KnowledgeBase): KnowledgeBase {
-    return {
-      name: knowledgeBase.name,
-      roleArn: knowledgeBase.roleArn,
-      instruction: knowledgeBase.instruction,
-      knowledgeBaseConfiguration: {
-        type: knowledgeBase.knowledgeBaseConfiguration?.type ?? 'VECTOR',
-        vectorKnowledgeBaseConfiguration: {
-          embeddingModelArn: knowledgeBase.knowledgeBaseConfiguration?.vectorKnowledgeBaseConfiguration.embeddingModelArn ??
-          `arn:aws:bedrock:${this.region}::foundation-model/amazon.titan-embed-text-v1`,
-        },
-      },
-      storageConfiguration: knowledgeBase.storageConfiguration,
-      dataSource: {
-        name: knowledgeBase.dataSource.name ?? `MyDataSource-${this.agentName}`,
-        dataSourceConfiguration: {
-          s3Configuration: {
-            bucketArn: knowledgeBase.dataSource.dataSourceConfiguration.s3Configuration.bucketArn,
-          },
-          type: knowledgeBase.dataSource.dataSourceConfiguration.type ?? 'S3',
-        },
-      },
-      removalPolicy: knowledgeBase.removalPolicy ?? RemovalPolicy.DESTROY,
-    };
+    }];
   }
 }
 

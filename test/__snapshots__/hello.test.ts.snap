@@ -29,10 +29,23 @@ exports[`Match snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
+    "BedrockAgentStackBedrockAgentCustomResourceA2D15E40": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "BedrockAgentStackBedrockAgentCustomResourceProviderframeworkonEventFBAAC3C3",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
     "BedrockAgentStackBedrockAgentCustomResourceFunction7C54E154": {
       "DependsOn": [
-        "BedrockAgentStackbedrockAgentCustomResourceRoleDefaultPolicy8E4D4F82",
-        "BedrockAgentStackbedrockAgentCustomResourceRole8906E28C",
+        "BedrockAgentStackBedrockAgentCustomResourceRoleDefaultPolicyEFD655A7",
+        "BedrockAgentStackBedrockAgentCustomResourceRole688B37A5",
       ],
       "Properties": {
         "Architectures": [
@@ -42,11 +55,11 @@ exports[`Match snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "360dd44f1e10a4d790521661c7e9a896aeec8725cc0367984d0286d6ce0bb727.zip",
+          "S3Key": "0f8a9dd2c12f7b4385b64c91289e075be61f082c79918edd9782b1f346d7181f.zip",
         },
         "Environment": {
           "Variables": {
-            "ACTION_GROUP": "{"actionGroupName":"Undefined","actionGroupExecutor":"Undefined","s3BucketName":"Undefined","s3ObjectKey":"Undefined"}",
+            "ACTION_GROUPS": "[{"actionGroupName":"Undefined","actionGroupExecutor":"Undefined","s3BucketName":"Undefined","s3ObjectKey":"Undefined"}]",
             "AGENT_NAME": "MyAgentTestName",
             "AGENT_RESOURCE_ROLE_ARN": {
               "Fn::GetAtt": [
@@ -58,7 +71,7 @@ exports[`Match snapshot 1`] = `
             "FOUNDATION_MODEL": "anthropic.claude-instant-v1",
             "IDLE_SESSION_TTL_IN_SECONDS": "3600",
             "INSTRUCTION": "This is a template instruction for my agent. You were created by AWS TypeScript CDK.",
-            "KNOWLEDGE_BASE": "{"name":"Undefined","roleArn":"Undefined","instruction":"Undefined","knowledgeBaseConfiguration":{"type":"Undefined","vectorKnowledgeBaseConfiguration":{"embeddingModelArn":"Undefined"}},"storageConfiguration":{"opensearchServerlessConfiguration":{"vectorIndexName":"Undefined","collectionArn":"Undefined","fieldMapping":{"vectorField":"Undefined","metadataField":"Undefined","textField":"Undefined"}},"type":"OPENSEARCH_SERVERLESS"},"dataSource":{"dataSourceConfiguration":{"s3Configuration":{"bucketArn":"Undefined"}}}}",
+            "KNOWLEDGE_BASE_ASSOCIATIONS": "[{"knowledgeBaseName":"Undefined","instruction":"Undefined"}]",
           },
         },
         "Handler": "bedrock_agent_custom_resource.on_event",
@@ -69,7 +82,7 @@ exports[`Match snapshot 1`] = `
         ],
         "Role": {
           "Fn::GetAtt": [
-            "BedrockAgentStackbedrockAgentCustomResourceRole8906E28C",
+            "BedrockAgentStackBedrockAgentCustomResourceRole688B37A5",
             "Arn",
           ],
         },
@@ -78,37 +91,10 @@ exports[`Match snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Function",
     },
-    "BedrockAgentStackBedrockAgentLayerA4E93A56": {
-      "Properties": {
-        "CompatibleRuntimes": [
-          "python3.10",
-        ],
-        "Content": {
-          "S3Bucket": {
-            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
-          },
-          "S3Key": "ceb6730b0e6a2cf691fc330b976a45644e569928d4fbd792e20d79397d332179.zip",
-        },
-      },
-      "Type": "AWS::Lambda::LayerVersion",
-    },
-    "BedrockAgentStackBedrockCustomResource7D963CF8": {
-      "DeletionPolicy": "Delete",
-      "Properties": {
-        "ServiceToken": {
-          "Fn::GetAtt": [
-            "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventB4EC7D8D",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::CloudFormation::CustomResource",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventB4EC7D8D": {
+    "BedrockAgentStackBedrockAgentCustomResourceProviderframeworkonEventFBAAC3C3": {
       "DependsOn": [
-        "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventServiceRoleDefaultPolicyE78DD0AF",
-        "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventServiceRole88457A82",
+        "BedrockAgentStackBedrockAgentCustomResourceProviderframeworkonEventServiceRoleDefaultPolicy069F488F",
+        "BedrockAgentStackBedrockAgentCustomResourceProviderframeworkonEventServiceRoleA42A439E",
       ],
       "Properties": {
         "Code": {
@@ -117,7 +103,7 @@ exports[`Match snapshot 1`] = `
           },
           "S3Key": "7382a0addb9f34974a1ea6c6c9b063882af874828f366f5c93b2b7b64db15c94.zip",
         },
-        "Description": "AWS CDK resource provider framework - onEvent (BedrockAgentStack/BedrockAgentStack/BedrockCustomResourceProvider)",
+        "Description": "AWS CDK resource provider framework - onEvent (BedrockAgentStack/BedrockAgentStack/BedrockAgentCustomResourceProvider)",
         "Environment": {
           "Variables": {
             "USER_ON_EVENT_FUNCTION_ARN": {
@@ -131,7 +117,7 @@ exports[`Match snapshot 1`] = `
         "Handler": "framework.onEvent",
         "Role": {
           "Fn::GetAtt": [
-            "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventServiceRole88457A82",
+            "BedrockAgentStackBedrockAgentCustomResourceProviderframeworkonEventServiceRoleA42A439E",
             "Arn",
           ],
         },
@@ -140,7 +126,7 @@ exports[`Match snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Function",
     },
-    "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventLogRetentionB1EBF216": {
+    "BedrockAgentStackBedrockAgentCustomResourceProviderframeworkonEventLogRetentionAD594AD8": {
       "Properties": {
         "LogGroupName": {
           "Fn::Join": [
@@ -148,7 +134,7 @@ exports[`Match snapshot 1`] = `
             [
               "/aws/lambda/",
               {
-                "Ref": "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventB4EC7D8D",
+                "Ref": "BedrockAgentStackBedrockAgentCustomResourceProviderframeworkonEventFBAAC3C3",
               },
             ],
           ],
@@ -163,7 +149,7 @@ exports[`Match snapshot 1`] = `
       },
       "Type": "Custom::LogRetention",
     },
-    "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventServiceRole88457A82": {
+    "BedrockAgentStackBedrockAgentCustomResourceProviderframeworkonEventServiceRoleA42A439E": {
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
@@ -194,7 +180,7 @@ exports[`Match snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventServiceRoleDefaultPolicyE78DD0AF": {
+    "BedrockAgentStackBedrockAgentCustomResourceProviderframeworkonEventServiceRoleDefaultPolicy069F488F": {
       "Properties": {
         "PolicyDocument": {
           "Statement": [
@@ -227,16 +213,16 @@ exports[`Match snapshot 1`] = `
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventServiceRoleDefaultPolicyE78DD0AF",
+        "PolicyName": "BedrockAgentStackBedrockAgentCustomResourceProviderframeworkonEventServiceRoleDefaultPolicy069F488F",
         "Roles": [
           {
-            "Ref": "BedrockAgentStackBedrockCustomResourceProviderframeworkonEventServiceRole88457A82",
+            "Ref": "BedrockAgentStackBedrockAgentCustomResourceProviderframeworkonEventServiceRoleA42A439E",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "BedrockAgentStackbedrockAgentCustomResourceRole8906E28C": {
+    "BedrockAgentStackBedrockAgentCustomResourceRole688B37A5": {
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
@@ -253,7 +239,7 @@ exports[`Match snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "BedrockAgentStackbedrockAgentCustomResourceRoleDefaultPolicy8E4D4F82": {
+    "BedrockAgentStackBedrockAgentCustomResourceRoleDefaultPolicyEFD655A7": {
       "Properties": {
         "PolicyDocument": {
           "Statement": [
@@ -275,14 +261,28 @@ exports[`Match snapshot 1`] = `
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "BedrockAgentStackbedrockAgentCustomResourceRoleDefaultPolicy8E4D4F82",
+        "PolicyName": "BedrockAgentStackBedrockAgentCustomResourceRoleDefaultPolicyEFD655A7",
         "Roles": [
           {
-            "Ref": "BedrockAgentStackbedrockAgentCustomResourceRole8906E28C",
+            "Ref": "BedrockAgentStackBedrockAgentCustomResourceRole688B37A5",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
+    },
+    "BedrockAgentStackBedrockAgentLayerA4E93A56": {
+      "Properties": {
+        "CompatibleRuntimes": [
+          "python3.10",
+        ],
+        "Content": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "ceb6730b0e6a2cf691fc330b976a45644e569928d4fbd792e20d79397d332179.zip",
+        },
+      },
+      "Type": "AWS::Lambda::LayerVersion",
     },
     "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A": {
       "DependsOn": [

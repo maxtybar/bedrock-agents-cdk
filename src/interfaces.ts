@@ -28,7 +28,7 @@ export interface ActionGroup {
 
 }
 
-export interface KnowledgeBase {
+export interface BedrockKnowledgeBaseProps {
   /**
     * Required. Name of the KnowledgeBase.
     */
@@ -65,12 +65,6 @@ export interface KnowledgeBase {
      */
   readonly dataSource: DataSource;
   /**
-     * Required. Instruction based on the design and type of information of the knowledge base.
-     * This will impact how the knowledge base interacts with the agent.
-     * @max 150 characters
-     */
-  readonly instruction: string;
-  /**
      * Optional. Description for the knowledge base.
      */
   readonly description?: string;
@@ -88,7 +82,7 @@ export interface KnowledgeBase {
 export interface DataSource {
   /**
     * Optional. Name for your data source.
-    * @default - `MyDataSource-${agentName}`
+    * @default - `MyDataSource-${agentName}` or `MyDataSource-${knowledgeBaseName}`
     */
   readonly name?: string;
   /**
@@ -127,6 +121,13 @@ export interface S3Configuration {
       * on for agent to make search on.
       */
   readonly bucketArn: string;
+  /**
+      * Optional. Prefix for a bucket if your files located in a folder.
+      * If you have a folder ``files``inside the bucket,
+      * and the folder contains files you want to perform
+      * search on, then use ``[files/]`` as an ``inclusionPrefixes``.
+      */
+  readonly inclusionPrefixes?: string[];
 
 }
 
@@ -188,7 +189,7 @@ export interface PineconeConfiguration {
     */
   readonly namespace?: string;
   /**
-    * Required. Field mapping consisting of``textField`` and ``metadataField``.
+    * Required. Field mapping consisting of ``textField`` and ``metadataField``.
     */
   readonly fieldMapping: PineconeFieldMapping;
 
@@ -314,6 +315,20 @@ export interface RedisEnterpriseCloudStorageConfiguration {
   readonly type: 'REDIS_ENTERPRISE_CLOUD';
 }
 
+export interface KnowledgeBaseAssociation {
+  /**
+     * Required. Name of the existing Knowledge Base that
+     * you want to associate with the agent.
+     */
+  readonly knowledgeBaseName: string;
+  /**
+     * Required. Instruction based on the design and type of information of the knowledge base.
+     * This will impact how the knowledge base interacts with the agent.
+     * @max 150 characters
+     */
+  readonly instruction: string;
+}
+
 // Create a BedrockAgentProps interface for BedrockAgent
 export interface BedrockAgentProps {
   /**
@@ -358,11 +373,16 @@ export interface BedrockAgentProps {
     * or yaml Open API schema, as well as Lambda ARN for the action group executor,
     * and action group name.
     */
-  readonly actionGroup?: ActionGroup;
+  readonly actionGroups?: ActionGroup[];
   /**
-    * Optional. Knowledge base. If provided must be either of type ``openSearchServerlessConfiguration``
-    * or ``pineconeConfiguration`` or ``redisEnterpriseCloudConfiguration``.
-    * @see https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-create.html
+    * Optional. A list of knowledge base association objects
+    * consisting of name and instruction for the associated knowledge base.
+    * @example
+    * knowledgeBaseAssociations: [
+    *   {
+    *     knowledgeBaseName: "knowledge-base-name",
+    *     instruction: "instruction-for-knowledge-base"
+    *   }
     */
-  readonly knowledgeBase?: KnowledgeBase;
+  readonly knowledgeBaseAssociations?: KnowledgeBaseAssociation[];
 }
