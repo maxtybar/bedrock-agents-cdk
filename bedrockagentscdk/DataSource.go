@@ -18,7 +18,7 @@ type DataSource struct {
 	// Optional.
 	//
 	// Name for your data source.
-	// Default: - `MyDataSource-${agentName}`.
+	// Default: - `MyDataSource-${agentName}` or `MyDataSource-${knowledgeBaseName}`.
 	//
 	Name *string `field:"optional" json:"name" yaml:"name"`
 }

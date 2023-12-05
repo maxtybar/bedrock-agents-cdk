@@ -4,16 +4,11 @@ import (
 	"github.com/aws/aws-cdk-go/awscdk/v2"
 )
 
-type KnowledgeBase struct {
+type BedrockKnowledgeBaseProps struct {
 	// Required.
 	//
 	// Data source configuration.
 	DataSource *DataSource `field:"required" json:"dataSource" yaml:"dataSource"`
-	// Required.
-	//
-	// Instruction based on the design and type of information of the knowledge base.
-	// This will impact how the knowledge base interacts with the agent.
-	Instruction *string `field:"required" json:"instruction" yaml:"instruction"`
 	// Required.
 	//
 	// Name of the KnowledgeBase.

@@ -20,7 +20,7 @@ func init() {
 		"bedrock-agents-cdk.BedrockAgent",
 		reflect.TypeOf((*BedrockAgent)(nil)).Elem(),
 		[]_jsii_.Member{
-			_jsii_.MemberProperty{JsiiProperty: "actionGroup", GoGetter: "ActionGroup"},
+			_jsii_.MemberProperty{JsiiProperty: "actionGroups", GoGetter: "ActionGroups"},
 			_jsii_.MemberProperty{JsiiProperty: "agentName", GoGetter: "AgentName"},
 			_jsii_.MemberProperty{JsiiProperty: "agentResourceRoleArn", GoGetter: "AgentResourceRoleArn"},
 			_jsii_.MemberProperty{JsiiProperty: "bedrockAgentCustomResourceRole", GoGetter: "BedrockAgentCustomResourceRole"},
@@ -28,7 +28,7 @@ func init() {
 			_jsii_.MemberProperty{JsiiProperty: "foundationModel", GoGetter: "FoundationModel"},
 			_jsii_.MemberProperty{JsiiProperty: "idleSessionTTLInSeconds", GoGetter: "IdleSessionTTLInSeconds"},
 			_jsii_.MemberProperty{JsiiProperty: "instruction", GoGetter: "Instruction"},
-			_jsii_.MemberProperty{JsiiProperty: "knowledgeBase", GoGetter: "KnowledgeBase"},
+			_jsii_.MemberProperty{JsiiProperty: "knowledgeBaseAssociations", GoGetter: "KnowledgeBaseAssociations"},
 			_jsii_.MemberProperty{JsiiProperty: "node", GoGetter: "Node"},
 			_jsii_.MemberProperty{JsiiProperty: "region", GoGetter: "Region"},
 			_jsii_.MemberMethod{JsiiMethod: "toString", GoMethod: "ToString"},
@@ -43,6 +43,32 @@ func init() {
 		"bedrock-agents-cdk.BedrockAgentProps",
 		reflect.TypeOf((*BedrockAgentProps)(nil)).Elem(),
 	)
+	_jsii_.RegisterClass(
+		"bedrock-agents-cdk.BedrockKnowledgeBase",
+		reflect.TypeOf((*BedrockKnowledgeBase)(nil)).Elem(),
+		[]_jsii_.Member{
+			_jsii_.MemberProperty{JsiiProperty: "bedrockKnowledgeBaseCustomResourceRole", GoGetter: "BedrockKnowledgeBaseCustomResourceRole"},
+			_jsii_.MemberProperty{JsiiProperty: "dataSource", GoGetter: "DataSource"},
+			_jsii_.MemberProperty{JsiiProperty: "description", GoGetter: "Description"},
+			_jsii_.MemberProperty{JsiiProperty: "knowledgeBaseConfiguration", GoGetter: "KnowledgeBaseConfiguration"},
+			_jsii_.MemberProperty{JsiiProperty: "name", GoGetter: "Name"},
+			_jsii_.MemberProperty{JsiiProperty: "node", GoGetter: "Node"},
+			_jsii_.MemberProperty{JsiiProperty: "region", GoGetter: "Region"},
+			_jsii_.MemberProperty{JsiiProperty: "removalPolicy", GoGetter: "RemovalPolicy"},
+			_jsii_.MemberProperty{JsiiProperty: "roleArn", GoGetter: "RoleArn"},
+			_jsii_.MemberProperty{JsiiProperty: "storageConfiguration", GoGetter: "StorageConfiguration"},
+			_jsii_.MemberMethod{JsiiMethod: "toString", GoMethod: "ToString"},
+		},
+		func() interface{} {
+			j := jsiiProxy_BedrockKnowledgeBase{}
+			_jsii_.InitJsiiProxy(&j.Type__constructsConstruct)
+			return &j
+		},
+	)
+	_jsii_.RegisterStruct(
+		"bedrock-agents-cdk.BedrockKnowledgeBaseProps",
+		reflect.TypeOf((*BedrockKnowledgeBaseProps)(nil)).Elem(),
+	)
 	_jsii_.RegisterStruct(
 		"bedrock-agents-cdk.DataSource",
 		reflect.TypeOf((*DataSource)(nil)).Elem(),
@@ -52,8 +78,8 @@ func init() {
 		reflect.TypeOf((*DataSourceConfiguration)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
-		"bedrock-agents-cdk.KnowledgeBase",
-		reflect.TypeOf((*KnowledgeBase)(nil)).Elem(),
+		"bedrock-agents-cdk.KnowledgeBaseAssociation",
+		reflect.TypeOf((*KnowledgeBaseAssociation)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
 		"bedrock-agents-cdk.KnowledgeBaseConfiguration",

@@ -16,7 +16,7 @@ type BedrockAgentProps struct {
 	// Action group for the agent. If specified must contain ``s3BucketName`` and ``s3ObjectKey`` with JSON
 	// or yaml Open API schema, as well as Lambda ARN for the action group executor,
 	// and action group name.
-	ActionGroup *ActionGroup `field:"optional" json:"actionGroup" yaml:"actionGroup"`
+	ActionGroups *[]*ActionGroup `field:"optional" json:"actionGroups" yaml:"actionGroups"`
 	// Optional.
 	//
 	// Resource role ARN for an agent.
@@ -47,10 +47,16 @@ type BedrockAgentProps struct {
 	IdleSessionTTLInSeconds *float64 `field:"optional" json:"idleSessionTTLInSeconds" yaml:"idleSessionTTLInSeconds"`
 	// Optional.
 	//
-	// Knowledge base. If provided must be either of type ``openSearchServerlessConfiguration``
-	// or ``pineconeConfiguration`` or ``redisEnterpriseCloudConfiguration``.
-	// See: https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-create.html
+	// A list of knowledge base association objects
+	// consisting of name and instruction for the associated knowledge base.
 	//
-	KnowledgeBase *KnowledgeBase `field:"optional" json:"knowledgeBase" yaml:"knowledgeBase"`
+	// Example:
+	//   knowledgeBaseAssociations: [
+	//     {
+	//       knowledgeBaseName: "knowledge-base-name",
+	//       instruction: "instruction-for-knowledge-base"
+	//     }
+	//
+	KnowledgeBaseAssociations *[]*KnowledgeBaseAssociation `field:"optional" json:"knowledgeBaseAssociations" yaml:"knowledgeBaseAssociations"`
 }
 

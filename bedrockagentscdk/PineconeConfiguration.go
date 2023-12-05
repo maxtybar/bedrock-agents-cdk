@@ -15,7 +15,7 @@ type PineconeConfiguration struct {
 	CredentialsSecretArn *string `field:"required" json:"credentialsSecretArn" yaml:"credentialsSecretArn"`
 	// Required.
 	//
-	// Field mapping consisting of``textField`` and ``metadataField``.
+	// Field mapping consisting of ``textField`` and ``metadataField``.
 	FieldMapping *PineconeFieldMapping `field:"required" json:"fieldMapping" yaml:"fieldMapping"`
 	// Optional.
 	//

@@ -11,7 +11,7 @@ import (
 
 type BedrockAgent interface {
 	constructs.Construct
-	ActionGroup() *ActionGroup
+	ActionGroups() *[]*ActionGroup
 	AgentName() *string
 	AgentResourceRoleArn() *string
 	BedrockAgentCustomResourceRole() awsiam.Role
@@ -19,7 +19,7 @@ type BedrockAgent interface {
 	FoundationModel() *string
 	IdleSessionTTLInSeconds() *float64
 	Instruction() *string
-	KnowledgeBase() *KnowledgeBase
+	KnowledgeBaseAssociations() *[]*KnowledgeBaseAssociation
 	// The tree node.
 	Node() constructs.Node
 	Region() *string
@@ -32,11 +32,11 @@ type jsiiProxy_BedrockAgent struct {
 	internal.Type__constructsConstruct
 }
 
-func (j *jsiiProxy_BedrockAgent) ActionGroup() *ActionGroup {
-	var returns *ActionGroup
+func (j *jsiiProxy_BedrockAgent) ActionGroups() *[]*ActionGroup {
+	var returns *[]*ActionGroup
 	_jsii_.Get(
 		j,
-		"actionGroup",
+		"actionGroups",
 		&returns,
 	)
 	return returns
@@ -112,11 +112,11 @@ func (j *jsiiProxy_BedrockAgent) Instruction() *string {
 	return returns
 }
 
-func (j *jsiiProxy_BedrockAgent) KnowledgeBase() *KnowledgeBase {
-	var returns *KnowledgeBase
+func (j *jsiiProxy_BedrockAgent) KnowledgeBaseAssociations() *[]*KnowledgeBaseAssociation {
+	var returns *[]*KnowledgeBaseAssociation
 	_jsii_.Get(
 		j,
-		"knowledgeBase",
+		"knowledgeBaseAssociations",
 		&returns,
 	)
 	return returns
