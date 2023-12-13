@@ -18,7 +18,6 @@ region = os.environ['AWS_REGION']
 
 def on_event(event, context):
     account_id = context.invoked_function_arn.split(":")[4]
-    physical_id = f"BedrockAgent-{agent_name}-cdk"
 
     print(json.dumps(event))
 
@@ -33,16 +32,12 @@ def on_event(event, context):
                          agent_description=agent_description,
                          agent_session_timeout=agent_session_timeout,
                          action_group_parameters_list=action_group_parameters_list,
-                         physical_id=physical_id,
                          region=region,
                          account_id=account_id)
     if request_type == 'Update':
-        return on_update(event,
-                         physical_id=physical_id)
+        return on_update(event)
     if request_type == 'Delete':
-        return on_delete(event,
-                         agent_name=agent_name,
-                         physical_id=physical_id,
+        return on_delete(agent_name=agent_name,
                          action_group_parameters_list=action_group_parameters_list)
     raise Exception("Invalid request type: %s" % request_type)
 
@@ -56,14 +51,13 @@ def on_create(event,
               agent_description,
               agent_session_timeout,
               action_group_parameters_list,
-              physical_id,
               region,
               account_id):
 
     props = event["ResourceProperties"]
     print("create new resource with props %s" % props)
 
-    agent_id = create_agent(agent_name=agent_name,
+    agent = create_agent(agent_name=agent_name,
                             agent_resource_role_arn=agent_resource_role_arn,
                             foundation_model=foundation_model,
                             agent_description=agent_description,
@@ -81,7 +75,7 @@ def on_create(event,
             action_group_description = action_group_parameters.get(
                 'description', 'Undefined')
 
-            lambda_add_agent_permission(agent_id=agent_id,
+            lambda_add_agent_permission(agent_id=agent['agentId'],
                                         agent_name=agent_name,
                                         function_name=lambda_arn,
                                         region=region,
@@ -94,7 +88,7 @@ def on_create(event,
                                       bucket_name=s3_bucket_name,
                                       key=s3_bucket_key,
                                       action_group_description=action_group_description,
-                                      agent_id=agent_id)
+                                      agent_id=agent['agentId'])
 
     # Associate Knowledge Base(s) if provided
     kb_list = agent_client.list_knowledge_bases()['knowledgeBaseSummaries']
@@ -102,27 +96,28 @@ def on_create(event,
         if kb_association['knowledgeBaseName'] != 'Undefined':
             for kb in kb_list:
                 if kb['name'] == kb_association['knowledgeBaseName']:
-                    associate_knowledge_base(agent_id=agent_id,
+                    associate_knowledge_base(agent_id=agent['agentId'],
                                              knowledge_base_id=kb['knowledgeBaseId'],
                                              description=kb_association['instruction'])
 
-    return {'PhysicalResourceId': physical_id}
+    return {
+        'Data': {
+            'agentId': agent['agentId'],
+            'agentArn': agent['agentArn']
+        }
+    }
 
 
-def on_update(event, physical_id):
-    # physical_id = event["PhysicalResourceId"]
+def on_update(event):
     props = event["ResourceProperties"]
-    print("Update resource %s with props %s" % (physical_id, props))
+    print("Update resource with props %s" % (props))
 
-    return {'PhysicalResourceId': physical_id}
+    return {'ResourceProperties': props}
 
 
-def on_delete(event, 
-              agent_name, 
-              physical_id, 
+def on_delete(agent_name,
               action_group_parameters_list):
-    # physical_id = event["PhysicalResourceId"]
-    print("Delete resource %s" % physical_id)
+    print("Delete resource(s)")
     delete_agent(agent_name=agent_name)
     # Remove lambda:allowInvoke permission
     for action_group_parameters in action_group_parameters_list:
@@ -132,8 +127,6 @@ def on_delete(event,
             if lambda_client.get_function(FunctionName=lambda_arn):
                 lambda_remove_agent_permission(agent_name=agent_name,
                                                function_name=lambda_arn)
-
-    return {'PhysicalResourceId': physical_id}
 
 
 def create_agent(agent_name,
@@ -157,7 +150,7 @@ def create_agent(agent_name,
 
     response = agent_client.create_agent(**args)
 
-    return response['agent']['agentId']
+    return response['agent']
 
 
 def lambda_add_agent_permission(agent_name, function_name,

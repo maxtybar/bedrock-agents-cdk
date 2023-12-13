@@ -85,16 +85,8 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#bedrock-agents-cdk.BedrockAgent.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#bedrock-agents-cdk.BedrockAgent.property.actionGroups">actionGroups</a></code> | <code><a href="#bedrock-agents-cdk.ActionGroup">ActionGroup</a>[]</code> | *No description.* |
-| <code><a href="#bedrock-agents-cdk.BedrockAgent.property.agentName">agentName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#bedrock-agents-cdk.BedrockAgent.property.agentResourceRoleArn">agentResourceRoleArn</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#bedrock-agents-cdk.BedrockAgent.property.bedrockAgentCustomResourceRole">bedrockAgentCustomResourceRole</a></code> | <code>aws-cdk-lib.aws_iam.Role</code> | *No description.* |
-| <code><a href="#bedrock-agents-cdk.BedrockAgent.property.foundationModel">foundationModel</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#bedrock-agents-cdk.BedrockAgent.property.idleSessionTTLInSeconds">idleSessionTTLInSeconds</a></code> | <code>number</code> | *No description.* |
-| <code><a href="#bedrock-agents-cdk.BedrockAgent.property.instruction">instruction</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#bedrock-agents-cdk.BedrockAgent.property.knowledgeBaseAssociations">knowledgeBaseAssociations</a></code> | <code><a href="#bedrock-agents-cdk.KnowledgeBaseAssociation">KnowledgeBaseAssociation</a>[]</code> | *No description.* |
-| <code><a href="#bedrock-agents-cdk.BedrockAgent.property.region">region</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#bedrock-agents-cdk.BedrockAgent.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#bedrock-agents-cdk.BedrockAgent.property.agentArn">agentArn</a></code> | <code>string</code> | `agentArn` is the ARN for the created agent. |
+| <code><a href="#bedrock-agents-cdk.BedrockAgent.property.agentId">agentId</a></code> | <code>string</code> | `agentId` is the unique identifier for the created agent. |
 
 ---
 
@@ -110,103 +102,27 @@ The tree node.
 
 ---
 
-##### `actionGroups`<sup>Required</sup> <a name="actionGroups" id="bedrock-agents-cdk.BedrockAgent.property.actionGroups"></a>
+##### `agentArn`<sup>Required</sup> <a name="agentArn" id="bedrock-agents-cdk.BedrockAgent.property.agentArn"></a>
 
 ```typescript
-public readonly actionGroups: ActionGroup[];
-```
-
-- *Type:* <a href="#bedrock-agents-cdk.ActionGroup">ActionGroup</a>[]
-
----
-
-##### `agentName`<sup>Required</sup> <a name="agentName" id="bedrock-agents-cdk.BedrockAgent.property.agentName"></a>
-
-```typescript
-public readonly agentName: string;
+public readonly agentArn: string;
 ```
 
 - *Type:* string
 
+`agentArn` is the ARN for the created agent.
+
 ---
 
-##### `agentResourceRoleArn`<sup>Required</sup> <a name="agentResourceRoleArn" id="bedrock-agents-cdk.BedrockAgent.property.agentResourceRoleArn"></a>
+##### `agentId`<sup>Required</sup> <a name="agentId" id="bedrock-agents-cdk.BedrockAgent.property.agentId"></a>
 
 ```typescript
-public readonly agentResourceRoleArn: string;
+public readonly agentId: string;
 ```
 
 - *Type:* string
 
----
-
-##### `bedrockAgentCustomResourceRole`<sup>Required</sup> <a name="bedrockAgentCustomResourceRole" id="bedrock-agents-cdk.BedrockAgent.property.bedrockAgentCustomResourceRole"></a>
-
-```typescript
-public readonly bedrockAgentCustomResourceRole: Role;
-```
-
-- *Type:* aws-cdk-lib.aws_iam.Role
-
----
-
-##### `foundationModel`<sup>Required</sup> <a name="foundationModel" id="bedrock-agents-cdk.BedrockAgent.property.foundationModel"></a>
-
-```typescript
-public readonly foundationModel: string;
-```
-
-- *Type:* string
-
----
-
-##### `idleSessionTTLInSeconds`<sup>Required</sup> <a name="idleSessionTTLInSeconds" id="bedrock-agents-cdk.BedrockAgent.property.idleSessionTTLInSeconds"></a>
-
-```typescript
-public readonly idleSessionTTLInSeconds: number;
-```
-
-- *Type:* number
-
----
-
-##### `instruction`<sup>Required</sup> <a name="instruction" id="bedrock-agents-cdk.BedrockAgent.property.instruction"></a>
-
-```typescript
-public readonly instruction: string;
-```
-
-- *Type:* string
-
----
-
-##### `knowledgeBaseAssociations`<sup>Required</sup> <a name="knowledgeBaseAssociations" id="bedrock-agents-cdk.BedrockAgent.property.knowledgeBaseAssociations"></a>
-
-```typescript
-public readonly knowledgeBaseAssociations: KnowledgeBaseAssociation[];
-```
-
-- *Type:* <a href="#bedrock-agents-cdk.KnowledgeBaseAssociation">KnowledgeBaseAssociation</a>[]
-
----
-
-##### `region`<sup>Required</sup> <a name="region" id="bedrock-agents-cdk.BedrockAgent.property.region"></a>
-
-```typescript
-public readonly region: string;
-```
-
-- *Type:* string
-
----
-
-##### `description`<sup>Optional</sup> <a name="description" id="bedrock-agents-cdk.BedrockAgent.property.description"></a>
-
-```typescript
-public readonly description: string;
-```
-
-- *Type:* string
+`agentId` is the unique identifier for the created agent.
 
 ---
 
@@ -294,15 +210,9 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.bedrockKnowledgeBaseCustomResourceRole">bedrockKnowledgeBaseCustomResourceRole</a></code> | <code>aws-cdk-lib.aws_iam.Role</code> | *No description.* |
-| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.dataSource">dataSource</a></code> | <code><a href="#bedrock-agents-cdk.DataSource">DataSource</a></code> | *No description.* |
-| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.name">name</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.region">region</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.roleArn">roleArn</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.storageConfiguration">storageConfiguration</a></code> | <code><a href="#bedrock-agents-cdk.OpenSearchServerlessStorageConfiguration">OpenSearchServerlessStorageConfiguration</a> \| <a href="#bedrock-agents-cdk.RedisEnterpriseCloudStorageConfiguration">RedisEnterpriseCloudStorageConfiguration</a> \| <a href="#bedrock-agents-cdk.PineconeStorageConfiguration">PineconeStorageConfiguration</a></code> | *No description.* |
-| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.knowledgeBaseConfiguration">knowledgeBaseConfiguration</a></code> | <code><a href="#bedrock-agents-cdk.KnowledgeBaseConfiguration">KnowledgeBaseConfiguration</a></code> | *No description.* |
-| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | *No description.* |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.dataSourceId">dataSourceId</a></code> | <code>string</code> | `dataSourceId` is the unique identifier for the created data source. |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.knowledgeBaseArn">knowledgeBaseArn</a></code> | <code>string</code> | `knowledgeBaseArn` is the ARN for the created knowledge base. |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBase.property.knowledgeBaseId">knowledgeBaseId</a></code> | <code>string</code> | `knowledgeBaseId` is the unique identifier for the created knowledge base. |
 
 ---
 
@@ -318,93 +228,39 @@ The tree node.
 
 ---
 
-##### `bedrockKnowledgeBaseCustomResourceRole`<sup>Required</sup> <a name="bedrockKnowledgeBaseCustomResourceRole" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.bedrockKnowledgeBaseCustomResourceRole"></a>
+##### `dataSourceId`<sup>Required</sup> <a name="dataSourceId" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.dataSourceId"></a>
 
 ```typescript
-public readonly bedrockKnowledgeBaseCustomResourceRole: Role;
-```
-
-- *Type:* aws-cdk-lib.aws_iam.Role
-
----
-
-##### `dataSource`<sup>Required</sup> <a name="dataSource" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.dataSource"></a>
-
-```typescript
-public readonly dataSource: DataSource;
-```
-
-- *Type:* <a href="#bedrock-agents-cdk.DataSource">DataSource</a>
-
----
-
-##### `name`<sup>Required</sup> <a name="name" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.name"></a>
-
-```typescript
-public readonly name: string;
+public readonly dataSourceId: string;
 ```
 
 - *Type:* string
 
+`dataSourceId` is the unique identifier for the created data source.
+
 ---
 
-##### `region`<sup>Required</sup> <a name="region" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.region"></a>
+##### `knowledgeBaseArn`<sup>Required</sup> <a name="knowledgeBaseArn" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.knowledgeBaseArn"></a>
 
 ```typescript
-public readonly region: string;
+public readonly knowledgeBaseArn: string;
 ```
 
 - *Type:* string
 
+`knowledgeBaseArn` is the ARN for the created knowledge base.
+
 ---
 
-##### `roleArn`<sup>Required</sup> <a name="roleArn" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.roleArn"></a>
+##### `knowledgeBaseId`<sup>Required</sup> <a name="knowledgeBaseId" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.knowledgeBaseId"></a>
 
 ```typescript
-public readonly roleArn: string;
+public readonly knowledgeBaseId: string;
 ```
 
 - *Type:* string
 
----
-
-##### `storageConfiguration`<sup>Required</sup> <a name="storageConfiguration" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.storageConfiguration"></a>
-
-```typescript
-public readonly storageConfiguration: OpenSearchServerlessStorageConfiguration | RedisEnterpriseCloudStorageConfiguration | PineconeStorageConfiguration;
-```
-
-- *Type:* <a href="#bedrock-agents-cdk.OpenSearchServerlessStorageConfiguration">OpenSearchServerlessStorageConfiguration</a> | <a href="#bedrock-agents-cdk.RedisEnterpriseCloudStorageConfiguration">RedisEnterpriseCloudStorageConfiguration</a> | <a href="#bedrock-agents-cdk.PineconeStorageConfiguration">PineconeStorageConfiguration</a>
-
----
-
-##### `description`<sup>Optional</sup> <a name="description" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.description"></a>
-
-```typescript
-public readonly description: string;
-```
-
-- *Type:* string
-
----
-
-##### `knowledgeBaseConfiguration`<sup>Optional</sup> <a name="knowledgeBaseConfiguration" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.knowledgeBaseConfiguration"></a>
-
-```typescript
-public readonly knowledgeBaseConfiguration: KnowledgeBaseConfiguration;
-```
-
-- *Type:* <a href="#bedrock-agents-cdk.KnowledgeBaseConfiguration">KnowledgeBaseConfiguration</a>
-
----
-
-##### `removalPolicy`<sup>Optional</sup> <a name="removalPolicy" id="bedrock-agents-cdk.BedrockKnowledgeBase.property.removalPolicy"></a>
-
-```typescript
-public readonly removalPolicy: RemovalPolicy;
-```
-
-- *Type:* aws-cdk-lib.RemovalPolicy
+`knowledgeBaseId` is the unique identifier for the created knowledge base.
 
 ---
 
@@ -429,7 +285,7 @@ const actionGroup: ActionGroup = { ... }
 | <code><a href="#bedrock-agents-cdk.ActionGroup.property.actionGroupName">actionGroupName</a></code> | <code>string</code> | Required. |
 | <code><a href="#bedrock-agents-cdk.ActionGroup.property.s3BucketName">s3BucketName</a></code> | <code>string</code> | Required. |
 | <code><a href="#bedrock-agents-cdk.ActionGroup.property.s3ObjectKey">s3ObjectKey</a></code> | <code>string</code> | Required. |
-| <code><a href="#bedrock-agents-cdk.ActionGroup.property.desription">desription</a></code> | <code>string</code> | Optional. |
+| <code><a href="#bedrock-agents-cdk.ActionGroup.property.description">description</a></code> | <code>string</code> | Optional. |
 
 ---
 
@@ -493,10 +349,10 @@ Must be either JSON or yaml file.
 
 ---
 
-##### `desription`<sup>Optional</sup> <a name="desription" id="bedrock-agents-cdk.ActionGroup.property.desription"></a>
+##### `description`<sup>Optional</sup> <a name="description" id="bedrock-agents-cdk.ActionGroup.property.description"></a>
 
 ```typescript
-public readonly desription: string;
+public readonly description: string;
 ```
 
 - *Type:* string

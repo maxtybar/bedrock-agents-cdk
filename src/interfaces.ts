@@ -24,7 +24,7 @@ export interface ActionGroup {
   /**
      * Optional. Description for the action group.
      */
-  readonly desription?: string;
+  readonly description?: string;
 
 }
 

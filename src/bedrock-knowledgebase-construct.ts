@@ -28,15 +28,31 @@ const defaultProps: Partial<BedrockKnowledgeBaseProps> = {
 // Create a BedrockAgent construct
 export class BedrockKnowledgeBase extends Construct {
 
-  readonly region: string;
-  readonly name: string;
-  readonly roleArn: string;
-  readonly knowledgeBaseConfiguration?: KnowledgeBaseConfiguration;
-  readonly storageConfiguration: OpenSearchServerlessStorageConfiguration | RedisEnterpriseCloudStorageConfiguration | PineconeStorageConfiguration;
-  readonly dataSource: DataSource;
-  readonly description?: string;
-  readonly removalPolicy?: RemovalPolicy;
-  readonly bedrockKnowledgeBaseCustomResourceRole: iam.Role;
+  private readonly region: string;
+  private readonly name: string;
+  private readonly roleArn: string;
+  private readonly knowledgeBaseConfiguration?: KnowledgeBaseConfiguration;
+  private readonly storageConfiguration:
+  OpenSearchServerlessStorageConfiguration |
+  RedisEnterpriseCloudStorageConfiguration |
+  PineconeStorageConfiguration;
+  private readonly dataSource: DataSource;
+  private readonly description?: string;
+  private readonly removalPolicy?: RemovalPolicy;
+  private readonly bedrockKnowledgeBaseCustomResourceRole: iam.Role;
+
+  /**
+    * `knowledgeBaseId` is the unique identifier for the created knowledge base.
+    */
+  readonly knowledgeBaseId: string;
+  /**
+    * `knowledgeBaseArn` is the ARN for the created knowledge base.
+    */
+  readonly knowledgeBaseArn: string;
+  /**
+    * `dataSourceId` is the unique identifier for the created data source.
+    */
+  readonly dataSourceId: string;
 
   constructor(scope: Construct, name: string, props: BedrockKnowledgeBaseProps) {
     super(scope, name);
@@ -67,7 +83,7 @@ export class BedrockKnowledgeBase extends Construct {
     }));
 
     const layer = new lambda.LayerVersion(this, 'BedrockAgentLayer', {
-      code: lambda.Code.fromAsset(path.join(__dirname, '../assets/lambda-layer/bedrock-agent-layer.zip')),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../assets/lambda_layer/bedrock-agent-layer.zip')),
       compatibleRuntimes: [lambda.Runtime.PYTHON_3_10],
     });
 
@@ -95,9 +111,13 @@ export class BedrockKnowledgeBase extends Construct {
       logRetention: logs.RetentionDays.ONE_DAY,
     });
 
-    new CustomResource(this, 'BedrockKnowledgeBaseCustomResource', {
+    const knowledgeBase = new CustomResource(this, 'BedrockKnowledgeBaseCustomResource', {
       serviceToken: bedrockKnowledgeBaseCustomResourceProvider.serviceToken,
     });
+
+    this.knowledgeBaseId = knowledgeBase.getAttString('knowledgeBaseId');
+    this.knowledgeBaseArn = knowledgeBase.getAttString('knowledgeBaseArn');
+    this.dataSourceId = knowledgeBase.getAttString('dataSourceId');
   }
 
   private setKnowledgeBaseConfigurationDefaultValues(knowledgeBaseConfiguration?: KnowledgeBaseConfiguration): KnowledgeBaseConfiguration {

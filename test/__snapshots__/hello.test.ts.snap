@@ -55,7 +55,7 @@ exports[`Match snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "0f8a9dd2c12f7b4385b64c91289e075be61f082c79918edd9782b1f346d7181f.zip",
+          "S3Key": "ba878896dd1328e5f6826200c7120c54603686b880d154b3b834922d6735e884.zip",
         },
         "Environment": {
           "Variables": {
@@ -284,6 +284,261 @@ exports[`Match snapshot 1`] = `
       },
       "Type": "AWS::Lambda::LayerVersion",
     },
+    "BedrockOpenSearchKnowledgeBaseBedrockAgentCustomResourceFunctionC962F549": {
+      "DependsOn": [
+        "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceRoleDefaultPolicy90FEEAF3",
+        "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceRoleB92EFA5D",
+      ],
+      "Properties": {
+        "Architectures": [
+          "x86_64",
+        ],
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "ba878896dd1328e5f6826200c7120c54603686b880d154b3b834922d6735e884.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "DATA_SOURCE": "{"name":"MyDataSource","dataSourceConfiguration":{"s3Configuration":{"bucketArn":"yourDataSourceBucketArn","inclusionPrefixes":["yourDataSourceBucketPrefix"]},"type":"S3"}}",
+            "DESCRIPTION": "Undefined",
+            "KNOWLEDGEBASE_CONFIGURATION": {
+              "Fn::Join": [
+                "",
+                [
+                  "{"type":"VECTOR","vectorKnowledgeBaseConfiguration":{"embeddingModelArn":"arn:aws:bedrock:",
+                  {
+                    "Ref": "AWS::Region",
+                  },
+                  "::foundation-model/amazon.titan-embed-text-v1"}}",
+                ],
+              ],
+            },
+            "KNOWLEDGEBASE_NAME": "MyTestKnowledgeBase",
+            "REMOVAL_POLICY": "destroy",
+            "ROLE_ARN": "yourKnowledgeBaseRoleArn",
+            "STORAGE_CONFIGURATION": "{"opensearchServerlessConfiguration":{"collectionArn":"yourOpensearchServerlessCollectionArn","fieldMapping":{"metadataField":"metadata-field","textField":"text-field","vectorField":"my-test-vector"},"vectorIndexName":"my-test-index"},"type":"OPENSEARCH_SERVERLESS"}",
+          },
+        },
+        "Handler": "bedrock_knowledgebase_custom_resource.on_event",
+        "Layers": [
+          {
+            "Ref": "BedrockOpenSearchKnowledgeBaseBedrockAgentLayerBF9ED476",
+          },
+        ],
+        "Role": {
+          "Fn::GetAtt": [
+            "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceRoleB92EFA5D",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.10",
+        "Timeout": 600,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "BedrockOpenSearchKnowledgeBaseBedrockAgentLayerBF9ED476": {
+      "Properties": {
+        "CompatibleRuntimes": [
+          "python3.10",
+        ],
+        "Content": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "ceb6730b0e6a2cf691fc330b976a45644e569928d4fbd792e20d79397d332179.zip",
+        },
+      },
+      "Type": "AWS::Lambda::LayerVersion",
+    },
+    "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceF40A0DF4": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceProviderframeworkonEvent92B355C1",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceProviderframeworkonEvent92B355C1": {
+      "DependsOn": [
+        "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceProviderframeworkonEventServiceRoleDefaultPolicyACE14FFA",
+        "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceProviderframeworkonEventServiceRoleBA03F925",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "7382a0addb9f34974a1ea6c6c9b063882af874828f366f5c93b2b7b64db15c94.zip",
+        },
+        "Description": "AWS CDK resource provider framework - onEvent (BedrockAgentStack/BedrockOpenSearchKnowledgeBase/BedrockKnowledgeBaseCustomResourceProvider)",
+        "Environment": {
+          "Variables": {
+            "USER_ON_EVENT_FUNCTION_ARN": {
+              "Fn::GetAtt": [
+                "BedrockOpenSearchKnowledgeBaseBedrockAgentCustomResourceFunctionC962F549",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.onEvent",
+        "Role": {
+          "Fn::GetAtt": [
+            "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceProviderframeworkonEventServiceRoleBA03F925",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceProviderframeworkonEventLogRetentionBF1B0FC5": {
+      "Properties": {
+        "LogGroupName": {
+          "Fn::Join": [
+            "",
+            [
+              "/aws/lambda/",
+              {
+                "Ref": "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceProviderframeworkonEvent92B355C1",
+              },
+            ],
+          ],
+        },
+        "RetentionInDays": 1,
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::LogRetention",
+    },
+    "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceProviderframeworkonEventServiceRoleBA03F925": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceProviderframeworkonEventServiceRoleDefaultPolicyACE14FFA": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "BedrockOpenSearchKnowledgeBaseBedrockAgentCustomResourceFunctionC962F549",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "BedrockOpenSearchKnowledgeBaseBedrockAgentCustomResourceFunctionC962F549",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceProviderframeworkonEventServiceRoleDefaultPolicyACE14FFA",
+        "Roles": [
+          {
+            "Ref": "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceProviderframeworkonEventServiceRoleBA03F925",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceRoleB92EFA5D": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceRoleDefaultPolicy90FEEAF3": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "iam:PassRole",
+              "Effect": "Allow",
+              "Resource": "yourKnowledgeBaseRoleArn",
+            },
+            {
+              "Action": "*",
+              "Effect": "Allow",
+              "Resource": "arn:aws:bedrock:*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceRoleDefaultPolicy90FEEAF3",
+        "Roles": [
+          {
+            "Ref": "BedrockOpenSearchKnowledgeBaseBedrockKnowledgeBaseCustomResourceRoleB92EFA5D",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
     "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A": {
       "DependsOn": [
         "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
@@ -294,7 +549,7 @@ exports[`Match snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "4e26bf2d0a26f2097fb2b261f22bb51e3f6b4b52635777b1e54edbd8e2d58c35.zip",
+          "S3Key": "5bc602ecde93c947efe5899ae355f999986a1acbe610b1c0b9c468d738857555.zip",
         },
         "Handler": "index.handler",
         "Role": {
