@@ -25,6 +25,6 @@ type ActionGroup struct {
 	// Optional.
 	//
 	// Description for the action group.
-	Desription *string `field:"optional" json:"desription" yaml:"desription"`
+	Description *string `field:"optional" json:"description" yaml:"description"`
 }
 

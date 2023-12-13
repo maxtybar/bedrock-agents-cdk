@@ -15,10 +15,16 @@ import { BedrockAgent } from 'bedrock-agents-cdk';
 const app = new cdk.App();
 const stack = new cdk.Stack(app, 'BedrockAgentStack');
 
-new BedrockAgent(stack, "BedrockAgent", {
+const agent = new BedrockAgent(stack, "BedrockAgent", {
   agentName: "BedrockAgent",
   instruction: "This is a test instruction. You were built by AWS CDK construct to answer all questions.",
 })
+
+// You can retrieve `agentId` and `agentArn` of the created agent
+// back from the construct.
+
+// const agentId = agent.agentId
+// const agentArn = agent.agentArn
 ```
 
 # Example - deploy knowledge base only
@@ -53,7 +59,7 @@ const kbRoleArn = new iam.Role(stack, 'BedrockKnowledgeBaseRole', {
 }).roleArn;
 
 // Create Bedrock Knowledge Base backed by OpenSearch Servereless
-new BedrockKnowledgeBase(stack, 'BedrockOpenSearchKnowledgeBase', {
+const knowledgeBase = new BedrockKnowledgeBase(stack, 'BedrockOpenSearchKnowledgeBase', {
   name: kbName,
   roleArn: kbRoleArn,
   storageConfiguration: {
@@ -78,6 +84,14 @@ new BedrockKnowledgeBase(stack, 'BedrockOpenSearchKnowledgeBase', {
     },
   },
 });
+
+// You can retrieve `knowledgeBaseId`, `knowledgeBaseArn`
+// and `dataSourceId` of the created knowledge base
+// and data source back from the construct.
+
+// const knowledgeBaseId = knowledgeBase.knowledgeBaseId
+// const knowledgeBaseArn = knowledgeBase.knowledgeBaseArn
+// const dataSourceId = knowledgeBase.dataSourceId
 ```
 
 # Example - deploy agent with a single action group
