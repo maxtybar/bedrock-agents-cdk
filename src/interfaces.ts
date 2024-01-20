@@ -54,12 +54,12 @@ export interface BedrockKnowledgeBaseProps {
   readonly knowledgeBaseConfiguration?: KnowledgeBaseConfiguration;
   /**
     * Required. KnowledgeBase storage configuration.
-    * Has to be either ``opensearchServerlessConfiguration`` or
-    * ``pineconeConfiguration`` or ``redisEnterpriseCloudConfiguration``
+    * Has to be either ``opensearchServerlessConfiguration``,
+    * ``pineconeConfiguration``, ``redisEnterpriseCloudConfiguration`` or `rdsConfiguration`
     * and respective type field mapping.
     */
   readonly storageConfiguration: OpenSearchServerlessStorageConfiguration |
-  RedisEnterpriseCloudStorageConfiguration | PineconeStorageConfiguration;
+  RedisEnterpriseCloudStorageConfiguration | PineconeStorageConfiguration | RdsStorageConfiguration;
   /**
      * Required. Data source configuration.
      */
@@ -219,12 +219,36 @@ export interface RedisEnterpriseCloudConfiguration {
 
 }
 
+export interface RdsConfiguration {
+  /**
+    * Required. The ARN of your Amazon Aurora DB cluster.
+    */
+  readonly resourceArn: string;
+  /**
+    * Required. The name of your Database.
+    */
+  readonly databaseName: string;
+  /**
+    * Required. The Table Name of your Amazon Aurora DB cluster.
+    */
+  readonly tableName: string;
+  /**
+    * Required. The Secret ARN of you Amazon Aurora DB cluster.
+    */
+  readonly credentialsSecretArn: string;
+  /**
+    * Required. Field mapping consisting of ``vectorField``, ``primaryKeyField``,
+    * ``textField`` and ``metadataField``.
+    */
+  readonly fieldMapping: RdsFieldMapping;
+
+}
+
 export interface BaseFieldMapping {
   /**
     * Required. Metadata field that you configured in your Vector DB.
-    * Bedrock will store metadata that is required to carry out souce attribution
-    * and enable data ingestion and querying for OpenSearch and Pinecone and
-    * will store raw text from your data in chunks in this field for Redis Enterprise Cloud.
+    * Bedrock will store metadata that is required to carry out source attribution
+    * and enable data ingestion and querying.
     */
   readonly metadataField: string;
   /**
@@ -250,6 +274,18 @@ export interface RedisFieldMapping extends BaseFieldMapping {
     * Bedrock will store the vector embeddings in this field.
     */
   readonly vectorField: string;
+}
+
+export interface RdsFieldMapping extends BaseFieldMapping {
+  /**
+    * Required. Vector field that you configured in Amazon Aurora.
+    * Bedrock will store the vector embeddings in this field.
+    */
+  readonly vectorField: string;
+  /**
+    * Required. The primary key that you configured in Amazon Aurora.
+    */
+  readonly primaryKeyField: string;
 }
 
 export interface OpenSearchServerlessStorageConfiguration {
@@ -313,6 +349,26 @@ export interface RedisEnterpriseCloudStorageConfiguration {
     * Required. Has to be ``"REDIS_ENTERPRISE_CLOUD"`` for Redis Enterprise Cloud Configuration.
     */
   readonly type: 'REDIS_ENTERPRISE_CLOUD';
+}
+
+export interface RdsStorageConfiguration {
+  /**
+    * Required. RDS Configuration.
+    * @example
+    * rdsConfiguration: {
+    *     credentialsSecretArn: 'arn:aws:secretsmanager:your-region:123456789098:secret:apiKey';
+    *     connectionString: 'https://your-connection-string.pinecone.io';
+    *     fieldMapping: {
+    *         metadataField: 'metadata-field',
+    *         textField: 'text-field'
+    *     },
+    * },
+    */
+  readonly rdsConfiguration: RdsConfiguration;
+  /**
+      * Required. Has to be ``"RDS"`` for RDS (Aurora) Configuration.
+      */
+  readonly type: 'RDS';
 }
 
 export interface KnowledgeBaseAssociation {

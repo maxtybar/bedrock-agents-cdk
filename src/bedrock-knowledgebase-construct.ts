@@ -17,6 +17,7 @@ import {
   OpenSearchServerlessStorageConfiguration,
   RedisEnterpriseCloudStorageConfiguration,
   PineconeStorageConfiguration,
+  RdsStorageConfiguration,
 } from './interfaces';
 
 // Assign default props
@@ -35,7 +36,7 @@ export class BedrockKnowledgeBase extends Construct {
   private readonly storageConfiguration:
   OpenSearchServerlessStorageConfiguration |
   RedisEnterpriseCloudStorageConfiguration |
-  PineconeStorageConfiguration;
+  PineconeStorageConfiguration | RdsStorageConfiguration;
   private readonly dataSource: DataSource;
   private readonly description?: string;
   private readonly removalPolicy?: RemovalPolicy;
