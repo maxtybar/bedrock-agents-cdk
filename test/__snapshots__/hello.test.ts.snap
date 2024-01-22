@@ -279,7 +279,7 @@ exports[`Match snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "ceb6730b0e6a2cf691fc330b976a45644e569928d4fbd792e20d79397d332179.zip",
+          "S3Key": "5db1ecd01ac13dc1ac81781044759c7d8cc675984d5b6c4d2414e1c6b28aba07.zip",
         },
       },
       "Type": "AWS::Lambda::LayerVersion",
@@ -347,7 +347,7 @@ exports[`Match snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "ceb6730b0e6a2cf691fc330b976a45644e569928d4fbd792e20d79397d332179.zip",
+          "S3Key": "5db1ecd01ac13dc1ac81781044759c7d8cc675984d5b6c4d2414e1c6b28aba07.zip",
         },
       },
       "Type": "AWS::Lambda::LayerVersion",
