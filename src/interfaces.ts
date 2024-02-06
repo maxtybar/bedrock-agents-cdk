@@ -356,11 +356,15 @@ export interface RdsStorageConfiguration {
     * Required. RDS Configuration.
     * @example
     * rdsConfiguration: {
-    *     credentialsSecretArn: 'arn:aws:secretsmanager:your-region:123456789098:secret:apiKey';
-    *     connectionString: 'https://your-connection-string.pinecone.io';
+    *     resourceArn: "arn:aws:rds:us-east-2:12345:cluster:my-aurora-cluster-1",
+    *     databaseName: "mydbcluster",
+    *     tableName: "mytable",
+    *     credentialsSecretArn: "arn:aws:rds:us-east-2:12345:cluster:my-aurora-cluster-1",
     *     fieldMapping: {
-    *         metadataField: 'metadata-field',
-    *         textField: 'text-field'
+    *         vectorField: "vectorField",
+    *         textField: "text"
+    *         metadataField: "metadata",
+    *         primaryKeyField: "id",
     *     },
     * },
     */
