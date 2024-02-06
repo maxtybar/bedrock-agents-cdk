@@ -370,8 +370,8 @@ export interface RdsStorageConfiguration {
     */
   readonly rdsConfiguration: RdsConfiguration;
   /**
-      * Required. Has to be ``"RDS"`` for RDS (Aurora) Configuration.
-      */
+    * Required. Has to be ``"RDS"`` for RDS (Aurora) Configuration.
+    */
   readonly type: 'RDS';
 }
 
