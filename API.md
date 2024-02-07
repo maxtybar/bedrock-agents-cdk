@@ -393,9 +393,8 @@ public readonly metadataField: string;
 Required.
 
 Metadata field that you configured in your Vector DB.
-Bedrock will store metadata that is required to carry out souce attribution
-and enable data ingestion and querying for OpenSearch and Pinecone and
-will store raw text from your data in chunks in this field for Redis Enterprise Cloud.
+Bedrock will store metadata that is required to carry out source attribution
+and enable data ingestion and querying.
 
 ---
 
@@ -596,7 +595,7 @@ const bedrockKnowledgeBaseProps: BedrockKnowledgeBaseProps = { ... }
 | <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.dataSource">dataSource</a></code> | <code><a href="#bedrock-agents-cdk.DataSource">DataSource</a></code> | Required. |
 | <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.name">name</a></code> | <code>string</code> | Required. |
 | <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.roleArn">roleArn</a></code> | <code>string</code> | Required. |
-| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.storageConfiguration">storageConfiguration</a></code> | <code><a href="#bedrock-agents-cdk.OpenSearchServerlessStorageConfiguration">OpenSearchServerlessStorageConfiguration</a> \| <a href="#bedrock-agents-cdk.RedisEnterpriseCloudStorageConfiguration">RedisEnterpriseCloudStorageConfiguration</a> \| <a href="#bedrock-agents-cdk.PineconeStorageConfiguration">PineconeStorageConfiguration</a></code> | Required. |
+| <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.storageConfiguration">storageConfiguration</a></code> | <code><a href="#bedrock-agents-cdk.OpenSearchServerlessStorageConfiguration">OpenSearchServerlessStorageConfiguration</a> \| <a href="#bedrock-agents-cdk.RedisEnterpriseCloudStorageConfiguration">RedisEnterpriseCloudStorageConfiguration</a> \| <a href="#bedrock-agents-cdk.PineconeStorageConfiguration">PineconeStorageConfiguration</a> \| <a href="#bedrock-agents-cdk.RdsStorageConfiguration">RdsStorageConfiguration</a></code> | Required. |
 | <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.description">description</a></code> | <code>string</code> | Optional. |
 | <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.knowledgeBaseConfiguration">knowledgeBaseConfiguration</a></code> | <code><a href="#bedrock-agents-cdk.KnowledgeBaseConfiguration">KnowledgeBaseConfiguration</a></code> | Optional. |
 | <code><a href="#bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | Optional. |
@@ -654,16 +653,16 @@ See more here @see https://docs.aws.amazon.com/opensearch-service/latest/develop
 ##### `storageConfiguration`<sup>Required</sup> <a name="storageConfiguration" id="bedrock-agents-cdk.BedrockKnowledgeBaseProps.property.storageConfiguration"></a>
 
 ```typescript
-public readonly storageConfiguration: OpenSearchServerlessStorageConfiguration | RedisEnterpriseCloudStorageConfiguration | PineconeStorageConfiguration;
+public readonly storageConfiguration: OpenSearchServerlessStorageConfiguration | RedisEnterpriseCloudStorageConfiguration | PineconeStorageConfiguration | RdsStorageConfiguration;
 ```
 
-- *Type:* <a href="#bedrock-agents-cdk.OpenSearchServerlessStorageConfiguration">OpenSearchServerlessStorageConfiguration</a> | <a href="#bedrock-agents-cdk.RedisEnterpriseCloudStorageConfiguration">RedisEnterpriseCloudStorageConfiguration</a> | <a href="#bedrock-agents-cdk.PineconeStorageConfiguration">PineconeStorageConfiguration</a>
+- *Type:* <a href="#bedrock-agents-cdk.OpenSearchServerlessStorageConfiguration">OpenSearchServerlessStorageConfiguration</a> | <a href="#bedrock-agents-cdk.RedisEnterpriseCloudStorageConfiguration">RedisEnterpriseCloudStorageConfiguration</a> | <a href="#bedrock-agents-cdk.PineconeStorageConfiguration">PineconeStorageConfiguration</a> | <a href="#bedrock-agents-cdk.RdsStorageConfiguration">RdsStorageConfiguration</a>
 
 Required.
 
 KnowledgeBase storage configuration.
-Has to be either ``opensearchServerlessConfiguration`` or
-``pineconeConfiguration`` or ``redisEnterpriseCloudConfiguration``
+Has to be either ``opensearchServerlessConfiguration``,
+``pineconeConfiguration``, ``redisEnterpriseCloudConfiguration`` or `rdsConfiguration`
 and respective type field mapping.
 
 ---
@@ -961,9 +960,8 @@ public readonly metadataField: string;
 Required.
 
 Metadata field that you configured in your Vector DB.
-Bedrock will store metadata that is required to carry out souce attribution
-and enable data ingestion and querying for OpenSearch and Pinecone and
-will store raw text from your data in chunks in this field for Redis Enterprise Cloud.
+Bedrock will store metadata that is required to carry out source attribution
+and enable data ingestion and querying.
 
 ---
 
@@ -1232,9 +1230,8 @@ public readonly metadataField: string;
 Required.
 
 Metadata field that you configured in your Vector DB.
-Bedrock will store metadata that is required to carry out souce attribution
-and enable data ingestion and querying for OpenSearch and Pinecone and
-will store raw text from your data in chunks in this field for Redis Enterprise Cloud.
+Bedrock will store metadata that is required to carry out source attribution
+and enable data ingestion and querying.
 
 ---
 
@@ -1311,6 +1308,245 @@ public readonly type: string;
 Required.
 
 Has to be ``"PINECONE"`` for Pinecone Configuration.
+
+---
+
+### RdsConfiguration <a name="RdsConfiguration" id="bedrock-agents-cdk.RdsConfiguration"></a>
+
+#### Initializer <a name="Initializer" id="bedrock-agents-cdk.RdsConfiguration.Initializer"></a>
+
+```typescript
+import { RdsConfiguration } from 'bedrock-agents-cdk'
+
+const rdsConfiguration: RdsConfiguration = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#bedrock-agents-cdk.RdsConfiguration.property.credentialsSecretArn">credentialsSecretArn</a></code> | <code>string</code> | Required. |
+| <code><a href="#bedrock-agents-cdk.RdsConfiguration.property.databaseName">databaseName</a></code> | <code>string</code> | Required. |
+| <code><a href="#bedrock-agents-cdk.RdsConfiguration.property.fieldMapping">fieldMapping</a></code> | <code><a href="#bedrock-agents-cdk.RdsFieldMapping">RdsFieldMapping</a></code> | Required. |
+| <code><a href="#bedrock-agents-cdk.RdsConfiguration.property.resourceArn">resourceArn</a></code> | <code>string</code> | Required. |
+| <code><a href="#bedrock-agents-cdk.RdsConfiguration.property.tableName">tableName</a></code> | <code>string</code> | Required. |
+
+---
+
+##### `credentialsSecretArn`<sup>Required</sup> <a name="credentialsSecretArn" id="bedrock-agents-cdk.RdsConfiguration.property.credentialsSecretArn"></a>
+
+```typescript
+public readonly credentialsSecretArn: string;
+```
+
+- *Type:* string
+
+Required.
+
+The Secret ARN of you Amazon Aurora DB cluster.
+
+---
+
+##### `databaseName`<sup>Required</sup> <a name="databaseName" id="bedrock-agents-cdk.RdsConfiguration.property.databaseName"></a>
+
+```typescript
+public readonly databaseName: string;
+```
+
+- *Type:* string
+
+Required.
+
+The name of your Database.
+
+---
+
+##### `fieldMapping`<sup>Required</sup> <a name="fieldMapping" id="bedrock-agents-cdk.RdsConfiguration.property.fieldMapping"></a>
+
+```typescript
+public readonly fieldMapping: RdsFieldMapping;
+```
+
+- *Type:* <a href="#bedrock-agents-cdk.RdsFieldMapping">RdsFieldMapping</a>
+
+Required.
+
+Field mapping consisting of ``vectorField``, ``primaryKeyField``,
+``textField`` and ``metadataField``.
+
+---
+
+##### `resourceArn`<sup>Required</sup> <a name="resourceArn" id="bedrock-agents-cdk.RdsConfiguration.property.resourceArn"></a>
+
+```typescript
+public readonly resourceArn: string;
+```
+
+- *Type:* string
+
+Required.
+
+The ARN of your Amazon Aurora DB cluster.
+
+---
+
+##### `tableName`<sup>Required</sup> <a name="tableName" id="bedrock-agents-cdk.RdsConfiguration.property.tableName"></a>
+
+```typescript
+public readonly tableName: string;
+```
+
+- *Type:* string
+
+Required.
+
+The Table Name of your Amazon Aurora DB cluster.
+
+---
+
+### RdsFieldMapping <a name="RdsFieldMapping" id="bedrock-agents-cdk.RdsFieldMapping"></a>
+
+#### Initializer <a name="Initializer" id="bedrock-agents-cdk.RdsFieldMapping.Initializer"></a>
+
+```typescript
+import { RdsFieldMapping } from 'bedrock-agents-cdk'
+
+const rdsFieldMapping: RdsFieldMapping = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#bedrock-agents-cdk.RdsFieldMapping.property.metadataField">metadataField</a></code> | <code>string</code> | Required. |
+| <code><a href="#bedrock-agents-cdk.RdsFieldMapping.property.textField">textField</a></code> | <code>string</code> | Required. |
+| <code><a href="#bedrock-agents-cdk.RdsFieldMapping.property.primaryKeyField">primaryKeyField</a></code> | <code>string</code> | Required. |
+| <code><a href="#bedrock-agents-cdk.RdsFieldMapping.property.vectorField">vectorField</a></code> | <code>string</code> | Required. |
+
+---
+
+##### `metadataField`<sup>Required</sup> <a name="metadataField" id="bedrock-agents-cdk.RdsFieldMapping.property.metadataField"></a>
+
+```typescript
+public readonly metadataField: string;
+```
+
+- *Type:* string
+
+Required.
+
+Metadata field that you configured in your Vector DB.
+Bedrock will store metadata that is required to carry out source attribution
+and enable data ingestion and querying.
+
+---
+
+##### `textField`<sup>Required</sup> <a name="textField" id="bedrock-agents-cdk.RdsFieldMapping.property.textField"></a>
+
+```typescript
+public readonly textField: string;
+```
+
+- *Type:* string
+
+Required.
+
+Text field that you configured in your Vector DB.
+Bedrock will store raw text from your data in chunks in this field.
+
+---
+
+##### `primaryKeyField`<sup>Required</sup> <a name="primaryKeyField" id="bedrock-agents-cdk.RdsFieldMapping.property.primaryKeyField"></a>
+
+```typescript
+public readonly primaryKeyField: string;
+```
+
+- *Type:* string
+
+Required.
+
+The primary key that you configured in Amazon Aurora.
+
+---
+
+##### `vectorField`<sup>Required</sup> <a name="vectorField" id="bedrock-agents-cdk.RdsFieldMapping.property.vectorField"></a>
+
+```typescript
+public readonly vectorField: string;
+```
+
+- *Type:* string
+
+Required.
+
+Vector field that you configured in Amazon Aurora.
+Bedrock will store the vector embeddings in this field.
+
+---
+
+### RdsStorageConfiguration <a name="RdsStorageConfiguration" id="bedrock-agents-cdk.RdsStorageConfiguration"></a>
+
+#### Initializer <a name="Initializer" id="bedrock-agents-cdk.RdsStorageConfiguration.Initializer"></a>
+
+```typescript
+import { RdsStorageConfiguration } from 'bedrock-agents-cdk'
+
+const rdsStorageConfiguration: RdsStorageConfiguration = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#bedrock-agents-cdk.RdsStorageConfiguration.property.rdsConfiguration">rdsConfiguration</a></code> | <code><a href="#bedrock-agents-cdk.RdsConfiguration">RdsConfiguration</a></code> | Required. |
+| <code><a href="#bedrock-agents-cdk.RdsStorageConfiguration.property.type">type</a></code> | <code>string</code> | Required. |
+
+---
+
+##### `rdsConfiguration`<sup>Required</sup> <a name="rdsConfiguration" id="bedrock-agents-cdk.RdsStorageConfiguration.property.rdsConfiguration"></a>
+
+```typescript
+public readonly rdsConfiguration: RdsConfiguration;
+```
+
+- *Type:* <a href="#bedrock-agents-cdk.RdsConfiguration">RdsConfiguration</a>
+
+Required.
+
+RDS Configuration.
+
+---
+
+*Example*
+
+```typescript
+rdsConfiguration: {
+    resourceArn: "arn:aws:rds:us-east-2:12345:cluster:my-aurora-cluster-1",
+    databaseName: "mydbcluster",
+    tableName: "mytable",
+    credentialsSecretArn: "arn:aws:rds:us-east-2:12345:cluster:my-aurora-cluster-1",
+    fieldMapping: {
+        vectorField: "vectorField",
+        textField: "text"
+        metadataField: "metadata",
+        primaryKeyField: "id",
+    },
+},
+```
+
+
+##### `type`<sup>Required</sup> <a name="type" id="bedrock-agents-cdk.RdsStorageConfiguration.property.type"></a>
+
+```typescript
+public readonly type: string;
+```
+
+- *Type:* string
+
+Required.
+
+Has to be ``"RDS"`` for RDS (Aurora) Configuration.
 
 ---
 
@@ -1490,9 +1726,8 @@ public readonly metadataField: string;
 Required.
 
 Metadata field that you configured in your Vector DB.
-Bedrock will store metadata that is required to carry out souce attribution
-and enable data ingestion and querying for OpenSearch and Pinecone and
-will store raw text from your data in chunks in this field for Redis Enterprise Cloud.
+Bedrock will store metadata that is required to carry out source attribution
+and enable data ingestion and querying.
 
 ---
 
