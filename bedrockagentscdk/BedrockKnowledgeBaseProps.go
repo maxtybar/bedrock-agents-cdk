@@ -26,8 +26,8 @@ type BedrockKnowledgeBaseProps struct {
 	// Required.
 	//
 	// KnowledgeBase storage configuration.
-	// Has to be either ``opensearchServerlessConfiguration`` or
-	// ``pineconeConfiguration`` or ``redisEnterpriseCloudConfiguration``
+	// Has to be either ``opensearchServerlessConfiguration``,
+	// ``pineconeConfiguration``, ``redisEnterpriseCloudConfiguration`` or `rdsConfiguration`
 	// and respective type field mapping.
 	StorageConfiguration interface{} `field:"required" json:"storageConfiguration" yaml:"storageConfiguration"`
 	// Optional.

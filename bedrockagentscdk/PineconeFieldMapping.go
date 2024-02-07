@@ -5,9 +5,8 @@ type PineconeFieldMapping struct {
 	// Required.
 	//
 	// Metadata field that you configured in your Vector DB.
-	// Bedrock will store metadata that is required to carry out souce attribution
-	// and enable data ingestion and querying for OpenSearch and Pinecone and
-	// will store raw text from your data in chunks in this field for Redis Enterprise Cloud.
+	// Bedrock will store metadata that is required to carry out source attribution
+	// and enable data ingestion and querying.
 	MetadataField *string `field:"required" json:"metadataField" yaml:"metadataField"`
 	// Required.
 	//

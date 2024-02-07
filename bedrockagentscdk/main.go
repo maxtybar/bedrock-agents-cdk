@@ -96,6 +96,18 @@ func init() {
 		reflect.TypeOf((*PineconeStorageConfiguration)(nil)).Elem(),
 	)
 	_jsii_.RegisterStruct(
+		"bedrock-agents-cdk.RdsConfiguration",
+		reflect.TypeOf((*RdsConfiguration)(nil)).Elem(),
+	)
+	_jsii_.RegisterStruct(
+		"bedrock-agents-cdk.RdsFieldMapping",
+		reflect.TypeOf((*RdsFieldMapping)(nil)).Elem(),
+	)
+	_jsii_.RegisterStruct(
+		"bedrock-agents-cdk.RdsStorageConfiguration",
+		reflect.TypeOf((*RdsStorageConfiguration)(nil)).Elem(),
+	)
+	_jsii_.RegisterStruct(
 		"bedrock-agents-cdk.RedisEnterpriseCloudConfiguration",
 		reflect.TypeOf((*RedisEnterpriseCloudConfiguration)(nil)).Elem(),
 	)

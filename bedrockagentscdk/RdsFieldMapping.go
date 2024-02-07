@@ -1,7 +1,7 @@
 package bedrockagentscdk
 
 
-type OpenSearchFieldMapping struct {
+type RdsFieldMapping struct {
 	// Required.
 	//
 	// Metadata field that you configured in your Vector DB.
@@ -15,7 +15,11 @@ type OpenSearchFieldMapping struct {
 	TextField *string `field:"required" json:"textField" yaml:"textField"`
 	// Required.
 	//
-	// Vector field that you configured in OpenSearch.
+	// The primary key that you configured in Amazon Aurora.
+	PrimaryKeyField *string `field:"required" json:"primaryKeyField" yaml:"primaryKeyField"`
+	// Required.
+	//
+	// Vector field that you configured in Amazon Aurora.
 	// Bedrock will store the vector embeddings in this field.
 	VectorField *string `field:"required" json:"vectorField" yaml:"vectorField"`
 }
