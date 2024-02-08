@@ -1,3 +1,7 @@
+> [!NOTE]
+> This is an expiremental construct and is not affiliated with AWS Bedrock team. Things can break so do not use in production. Currently there is no suppor for `updates` of the construct but it is planned to be added soon.
+> All classes are under active development and subject to non-backward compatible changes or removal in any future version. These are not subject to the Semantic Versioning model. This means that while you may use them, you may need to update your source code when upgrading to a newer version of this package.
+
 # Bedrock Agent and Bedrock Knowledge Base Constructs
 
 See [API.md](API.md) for more information about construct.
