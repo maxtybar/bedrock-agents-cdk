@@ -30,7 +30,6 @@ jspm_packages/
 *.tgz
 .yarn-integrity
 .cache
-!/.projenrc.js
 /test-reports/
 junit.xml
 /coverage/
@@ -54,3 +53,4 @@ cdk.context.json
 *.DS_Store
 src/integ.default.ts
 src/integ.default.agent.ts
+!/.projenrc.ts
