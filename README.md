@@ -1,16 +1,19 @@
+> [!CAUTION]
+> This construct is not being maintained and is retired. Please refer to the AWS-managed [generative-ai-cdk-constructs](https://github.com/awslabs/generative-ai-cdk-constructs/tree/main) repository.
+
 > [!NOTE]
-> This is an expiremental construct and is not affiliated with AWS Bedrock team. Things can break so do not use in production. Currently there is no suppor for `updates` of the construct but it is planned to be added soon.
+> This is an experimental construct and is not affiliated with AWS Bedrock team. Things can break so do not use them in production. Currently, there is no support for `updates` of the construct but it is planned to be added soon.
 > All classes are under active development and subject to non-backward compatible changes or removal in any future version. These are not subject to the Semantic Versioning model. This means that while you may use them, you may need to update your source code when upgrading to a newer version of this package.
 
 # Bedrock Agent and Bedrock Knowledge Base Constructs
 
-See [API.md](API.md) for more information about construct.
+See [API.md](API.md) for more information about the construct.
 
-Also see TypeScript deployment examples below. All of the examples assume you have appropriate IAM permissions for provisioning resources in AWS.
+Also, see TypeScript deployment examples below. All of the examples assume you have appropriate IAM permissions for provisioning resources in AWS.
 
 # Example - deploy agent only
 
-This example will create an agent without Action Group and with default IAM role. If ``agentResourceRoleArn`` is not specified a default IAM role with no policies attached to it will be provisioned for your agent.
+This example will create an agent without Action Group and with the default IAM role. If ``agentResourceRoleArn`` is not specified a default IAM role with no policies attached to it will be provisioned for your agent.
 
 ``` typescript
 import * as cdk from 'aws-cdk-lib';
@@ -35,7 +38,7 @@ const agent = new BedrockAgent(stack, "BedrockAgent", {
 
 This example will create a knowledge base backed by Amazon OpenSearch Serverless collection that could be used without an agent. This example assumes you have already created Amazon OpenSearch Serverless collection (`collectionArn`).
 
-**Note: The IAM role creation in this example is for illustration only. Always provion IAM roles with the least required priviliges.**
+**Note: The IAM role creation in this example is for illustration only. Always provision IAM roles with the least required privileges.**
 
 ``` typescript
 import * as cdk from 'aws-cdk-lib';
@@ -62,7 +65,7 @@ const kbRoleArn = new iam.Role(stack, 'BedrockKnowledgeBaseRole', {
   managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess')],
 }).roleArn;
 
-// Create Bedrock Knowledge Base backed by OpenSearch Servereless
+// Create Bedrock Knowledge Base backed by OpenSearch Serverless
 const knowledgeBase = new BedrockKnowledgeBase(stack, 'BedrockOpenSearchKnowledgeBase', {
   name: kbName,
   roleArn: kbRoleArn,
@@ -100,9 +103,9 @@ const knowledgeBase = new BedrockKnowledgeBase(stack, 'BedrockOpenSearchKnowledg
 
 # Example - deploy agent with a single action group
 
-This example will create an agent with an Action Group and with your IAM role (`agentResourceRoleArn`). It assumes that you already have an S3 bucket and a stored JSON or yml Open API schema file that will be included in your action group. Additionaly, `pathToLambdaFile` should contain path to your function code file inside your cdk project that you want to be attached to your agent's action group. Resource-based policy statement will be attached to your Lambda function allowing Bedrock Agent to invoke it.
+This example will create an agent with an Action Group and with your IAM role (`agentResourceRoleArn`). It assumes that you already have an S3 bucket and a stored JSON or yml Open API schema file that will be included in your action group. Additionally, `pathToLambdaFile` should contain the path to your function code file inside your cdk project that you want to be attached to your agent's action group. Resource-based policy statement will be attached to your Lambda function allowing Bedrock Agent to invoke it.
 
-**Note: The IAM role creation in this example is for illustration only. Always provion IAM roles with the least required priviliges.**
+**Note: The IAM role creation in this example is for illustration only. Always provision IAM roles with the least required privileges.**
 
 ```typescript
 import * as path from 'path';
