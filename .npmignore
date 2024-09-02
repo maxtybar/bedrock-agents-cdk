@@ -28,3 +28,4 @@ src/integ.default.ts
 src/integ.default.agent.ts
 /.gitattributes
 /.projenrc.ts
+/projenrc
